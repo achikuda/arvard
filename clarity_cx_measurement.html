@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clarity — CX Measurement · Archil Vardidze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Varela Round',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F5F4F0;color:#1C1C1A;line-height:1.6}
+.page{max-width:900px;margin:0 auto;padding:40px 24px;display:flex;flex-direction:column;gap:24px}
+
+:root{
+  --ink:#1C1C1A;
+  --ink2:#6B6B68;
+  --ink3:#A8A8A4;
+  --border:#E8E7E3;
+  --surface:#FFFFFF;
+  --base:#F5F4F0;
+  --lift:#EFEFEB;
+  --red:#D94035;
+  --red-light:#FAE9E8;
+}
+
+.slide{background:var(--surface);border-radius:20px;overflow:hidden;border:0.5px solid var(--border)}
+
+/* COVER */
+.cover{background:var(--ink);padding:60px 52px 52px}
+.cover-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:32px}
+.cover-title{font-size:46px;color:#fff;line-height:1.08;margin-bottom:18px;font-weight:500;letter-spacing:-0.5px}
+.cover-title em{color:var(--red);font-style:normal}
+.cover-sub{font-size:15px;color:rgba(255,255,255,0.36);max-width:520px;line-height:1.8;margin-bottom:52px}
+.cover-meta{display:flex;gap:44px;flex-wrap:wrap;padding-top:32px;border-top:0.5px solid rgba(255,255,255,0.08)}
+.cm-item label{display:block;font-size:10px;color:rgba(255,255,255,0.2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
+.cm-item span{font-size:13px;color:rgba(255,255,255,0.5);font-weight:500}
+
+/* SLIDE HEADER */
+.s-head{padding:40px 48px 0}
+.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--ink3);margin-bottom:12px}
+.s-title{font-size:26px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:8px}
+.s-sub{font-size:14px;color:var(--ink2);line-height:1.7;max-width:580px}
+.s-body{padding:28px 48px 44px}
+
+/* INSIGHT STRIP */
+.strip{background:var(--lift);padding:20px 48px;border-top:0.5px solid var(--border)}
+.strip-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--ink3);margin-bottom:5px}
+.strip-text{font-size:13px;color:var(--ink2);line-height:1.65}
+.strip-text strong{color:var(--ink);font-weight:500}
+
+/* PROBLEM GRID */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.p-card{background:var(--lift);border-radius:12px;padding:22px 24px;border-left:3px solid var(--red)}
+.p-card h4{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:7px}
+.p-card p{font-size:13px;color:var(--ink2);line-height:1.65}
+
+/* DIVIDER */
+.divider{height:0.5px;background:var(--border);margin:20px 0}
+
+/* METRIC BLOCKS */
+.metric-block{margin-bottom:4px}
+.metric-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.metric-tag{font-size:11px;font-weight:500;letter-spacing:.5px;padding:3px 11px;border-radius:20px}
+.tag-nps{background:#FAE9E8;color:var(--red)}
+.tag-csat{background:#EBF0FA;color:#2850a0}
+.tag-ces{background:#F0EFFA;color:#4a3ab5}
+.metric-name{font-size:14px;font-weight:500;color:var(--ink)}
+.metric-rows{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m-row{background:var(--lift);border-radius:10px;padding:14px 17px}
+.m-row label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--ink3);margin-bottom:5px;display:block}
+.m-row p{font-size:13px;color:var(--ink2);line-height:1.6}
+.m-row p strong{color:var(--ink);font-weight:500}
+
+/* STAT ROW */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px}
+.stat-card{background:var(--lift);border-radius:14px;padding:28px 24px;text-align:center}
+.stat-num{font-size:42px;font-weight:500;color:var(--red);line-height:1;margin-bottom:8px}
+.stat-label{font-size:13px;color:var(--ink2);line-height:1.5}
+
+/* BEFORE / AFTER */
+.ba-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.ba-card{border-radius:14px;padding:26px 28px}
+.ba-card.before{background:#FAE9E8;border:0.5px solid #f0cbc9}
+.ba-card.after{background:var(--ink);border:0.5px solid var(--ink)}
+.ba-tag{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;font-weight:500;margin-bottom:10px}
+.ba-card.before .ba-tag{color:var(--red)}
+.ba-card.after .ba-tag{color:rgba(255,255,255,0.28)}
+.ba-card.before .ba-title{font-size:24px;font-weight:500;color:var(--red);margin-bottom:8px}
+.ba-card.after .ba-title{font-size:24px;font-weight:500;color:#fff;margin-bottom:8px}
+.ba-card.before .ba-body{font-size:13px;color:#a05050;line-height:1.65}
+.ba-card.after .ba-body{font-size:13px;color:rgba(255,255,255,0.42);line-height:1.65}
+
+/* CALLBACK */
+.cb-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px}
+.cb-card{border-radius:12px;padding:22px 24px;background:var(--lift)}
+.cb-chip{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.5px;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+.chip-det{background:#FAE9E8;color:var(--red)}
+.chip-neu{background:#EBF0FA;color:#2850a0}
+.cb-card h4{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:7px}
+.cb-card p{font-size:13px;color:var(--ink2);line-height:1.65}
+
+/* CLOSING */
+.closing{background:var(--ink);padding:56px 52px}
+.closing-quote{font-size:26px;font-weight:500;color:#fff;line-height:1.35;margin-bottom:36px;max-width:620px}
+.closing-quote em{color:var(--red);font-style:normal}
+.closing-divider{height:0.5px;background:rgba(255,255,255,0.08);margin-bottom:24px}
+.closing-meta{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+.closing-role{font-size:12px;color:rgba(255,255,255,0.25);letter-spacing:1px;text-transform:uppercase;line-height:1.8}
+.closing-role strong{display:block;font-size:14px;color:rgba(255,255,255,0.55);font-weight:500;letter-spacing:0;text-transform:none;margin-bottom:2px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- COVER -->
+<div class="slide">
+<div class="cover">
+  <div class="cover-label">Portfolio case study · TBC Bank · 2025–2026</div>
+  <div class="cover-title">The measurement<br>that showed <em>the truth</em></div>
+  <div class="cover-sub">CX metrics across 146 journeys were built to confirm success, not find it. This is how we reset them — and what happened when reality finally showed up on the dashboard.</div>
+  <div class="cover-meta">
+    <div class="cm-item"><label>Role</label><span>Chief Design Officer</span></div>
+    <div class="cm-item"><label>Scope</label><span>146 journeys · ~2,000 triggers</span></div>
+    <div class="cm-item"><label>Outcome</label><span>Scores dropped. Good.</span></div>
+  </div>
+</div>
+</div>
+
+<!-- 01 PROBLEM -->
+<div class="slide">
+<div class="s-head">
+  <div class="eyebrow">01 · The problem</div>
+  <div class="s-title">The dashboard said great.<br>The experience was not.</div>
+  <div class="s-sub">TBC Bank had Medallia. Product teams had NPS. Nobody had accurate signal.</div>
+</div>
+<div class="s-body">
+  <div class="problem-grid">
+    <div class="p-card">
+      <h4>NPS placed after button taps</h4>
+      <p>Product teams triggered surveys at the end of successful transactions — measuring whether a UI function worked, not whether the bank earned trust.</p>
+    </div>
+    <div class="p-card">
+      <h4>CSAT after single interactions</h4>
+      <p>Feedback collected immediately after one touchpoint. No account for what came before, or what happened after disbursement.</p>
+    </div>
+    <div class="p-card">
+      <h4>CES at the wrong moments</h4>
+      <p>Effort scores placed where flows ended — not where customers struggled. High-friction steps and channel transitions were invisible.</p>
+    </div>
+    <div class="p-card">
+      <h4>Ownership was decentralized</h4>
+      <p>Each product team instrumented surveys independently. No framework. No consistency. No ability to compare signal across journeys.</p>
+    </div>
+  </div>
+</div>
+<div class="strip">
+  <div class="strip-label">Root cause</div>
+  <div class="strip-text">Customers were answering <strong>"did this button work?"</strong> — and the answer was always yes. So scores stayed high, confidence stayed false, and real problems went undetected.</div>
+</div>
+</div>
+
+<!-- 02 THE RESET -->
+<div class="slide">
+<div class="s-head">
+  <div class="eyebrow">02 · The reset</div>
+  <div class="s-title">Each metric redefined<br>from first principles.</div>
+  <div class="s-sub">NPS, CSAT, and CES each measure something distinct. We rebuilt the logic behind all three.</div>
+</div>
+<div class="s-body">
+
+  <div class="metric-block">
+    <div class="metric-header">
+      <span class="metric-tag tag-nps">NPS</span>
+      <span class="metric-name">Measures trust — not UI satisfaction</span>
+    </div>
+    <div class="metric-rows">
+      <div class="m-row">
+        <label>Placed at</label>
+        <p>Loan approval/rejection · financing decisions · moments where the bank delivers or breaks a promise</p>
+      </div>
+      <div class="m-row">
+        <label>Question reframed</label>
+        <p><strong>"Would you recommend the bank?"</strong> — not the feature. Not the screen. The bank.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="metric-block">
+    <div class="metric-header">
+      <span class="metric-tag tag-csat">CSAT</span>
+      <span class="metric-name">Measures end-to-end product experience</span>
+    </div>
+    <div class="metric-rows">
+      <div class="m-row">
+        <label>Triggered after</label>
+        <p>Loan disbursed + repayment started · multiple touchpoints engaged · post-sale experience included</p>
+      </div>
+      <div class="m-row">
+        <label>Shift</label>
+        <p>From <strong>single interaction</strong> to full journey. If the bank let you down at step 4, step 1's score doesn't matter.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="metric-block">
+    <div class="metric-header">
+      <span class="metric-tag tag-ces">CES</span>
+      <span class="metric-name">Measures friction — where customers struggle</span>
+    </div>
+    <div class="metric-rows">
+      <div class="m-row">
+        <label>Placed at</label>
+        <p>High-effort steps · channel transitions (digital → branch) · known drop-off points</p>
+      </div>
+      <div class="m-row">
+        <label>Focus</label>
+        <p>Where customers <strong>struggle</strong>, not where flows end. The hard part, not the confirmation screen.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- 03 EXECUTION -->
+<div class="slide">
+<div class="s-head">
+  <div class="eyebrow">03 · Execution</div>
+  <div class="s-title">Not a framework update.<br>A full re-instrumentation.</div>
+  <div class="s-sub">Every journey. Every trigger. Every ownership line.</div>
+</div>
+<div class="s-body">
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-num">146</div>
+      <div class="stat-label">journeys mapped and redefined</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">~2K</div>
+      <div class="stat-label">survey triggers rebuilt from scratch</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">1</div>
+      <div class="stat-label">owner — CX, not product teams improvising</div>
+    </div>
+  </div>
+</div>
+<div class="strip">
+  <div class="strip-label">Structural change</div>
+  <div class="strip-text">Survey ownership moved from product teams acting independently to a <strong>single CX function</strong> with consistent logic across all products — making cross-journey comparison possible for the first time.</div>
+</div>
+</div>
+
+<!-- 04 OUTCOME -->
+<div class="slide">
+<div class="s-head">
+  <div class="eyebrow">04 · What happened</div>
+  <div class="s-title">By March, scores dropped sharply.</div>
+  <div class="s-sub">That was the intended outcome.</div>
+</div>
+<div class="s-body">
+  <div class="ba-row">
+    <div class="ba-card before">
+      <div class="ba-tag">Before</div>
+      <div class="ba-title">High scores</div>
+      <div class="ba-body">False positives. Metrics reflecting whether UI functioned — not whether customers trusted the bank or felt their needs were met.</div>
+    </div>
+    <div class="ba-card after">
+      <div class="ba-tag">After</div>
+      <div class="ba-title">Real signal</div>
+      <div class="ba-body">Actual customer sentiment. Teams could finally see where trust broke, where effort was high, and what to prioritize — by impact, not opinion.</div>
+    </div>
+  </div>
+</div>
+<div class="strip">
+  <div class="strip-label">The principle</div>
+  <div class="strip-text">A score that only goes up is not a metric — it's a mirror for the team that built it. <strong>The first honest score is the most valuable score you'll ever see.</strong></div>
+</div>
+</div>
+
+<!-- 05 CLOSING THE LOOP -->
+<div class="slide">
+<div class="s-head">
+  <div class="eyebrow">05 · Closing the loop</div>
+  <div class="s-title">Collecting feedback without acting<br>on it is expensive decoration.</div>
+  <div class="s-sub">We added a callback team to turn signal into recovery.</div>
+</div>
+<div class="s-body">
+  <div class="cb-row">
+    <div class="cb-card">
+      <div class="cb-chip chip-det">Detractors</div>
+      <h4>Understand and recover trust</h4>
+      <p>Every detractor reached directly. The goal isn't to dispute the score — it's to understand what broke and show the bank is paying attention.</p>
+    </div>
+    <div class="cb-card">
+      <div class="cb-chip chip-neu">Neutrals</div>
+      <h4>Fastest path to promoters</h4>
+      <p>Neutrals already have a relationship. A single meaningful interaction — acknowledging friction, offering resolution — is often enough to move them.</p>
+    </div>
+  </div>
+</div>
+<div class="strip">
+  <div class="strip-label">System closed</div>
+  <div class="strip-text">Detect signal → understand the cause → validate → act → measure again. <strong>Feedback is not a report. It's the start of a conversation.</strong></div>
+</div>
+</div>
+
+<!-- CLOSING -->
+<div class="slide">
+<div class="closing">
+  <div class="closing-quote">The most important thing we shipped in Year 1 wasn't a feature. It was the ability to <em>see clearly.</em></div>
+  <div class="closing-divider"></div>
+  <div class="closing-meta">
+    <div class="closing-role">
+      <strong>Archil Vardidze</strong>
+      Chief Design Officer · TBC Bank
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
