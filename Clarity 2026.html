@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clarity — Archil Vardidze</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Varela Round',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F5F4F0;color:#1C1C1A;line-height:1.6}
+.page{max-width:900px;margin:0 auto;padding:40px 24px}
+:root{
+--ink:#1C1C1A;--ink2:#6B6B68;--ink3:#767673;
+--border:#E8E7E3;--surface:#FFFFFF;--base:#F5F4F0;--lift:#EFEFEB;
+--red:#D94035;--red-light:#FAE9E8;--red-text:#B02E24;
+}
+.mdi{font-size:16px;line-height:1;vertical-align:middle}
+.slide{background:var(--surface);border-radius:20px;margin-bottom:32px;overflow:hidden;border:0.5px solid var(--border)}
+.hero{background:var(--ink);padding:60px 48px 52px}
+.hero-eyebrow{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:20px}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.07);border-radius:20px;padding:5px 14px;margin-bottom:24px}
+.hb-dot{width:6px;height:6px;border-radius:50%;background:var(--red)}
+.hb-text{font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:.5px}
+.hero-title{font-size:44px;font-weight:500;color:#fff;line-height:1.12;margin-bottom:18px}
+.hero-title span{color:var(--red)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.4);margin-bottom:44px;max-width:500px;line-height:1.75}
+.hero-meta{display:flex;gap:32px;flex-wrap:wrap;padding-top:32px;border-top:0.5px solid rgba(255,255,255,0.08)}
+.hm-item label{display:block;font-size:10px;color:rgba(255,255,255,0.55);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.hm-item span{font-size:13px;color:rgba(255,255,255,0.75);font-weight:500}
+.slide-header{padding:40px 44px 0}
+.eyebrow{font-size:10px;letter-spacing:1.5px;color:var(--ink3);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.eyebrow-num{width:20px;height:20px;border-radius:50%;background:var(--lift);font-size:9px;font-weight:500;color:var(--ink2);display:inline-flex;align-items:center;justify-content:center;line-height:1;flex-shrink:0}
+.slide-title{font-size:27px;font-weight:500;color:var(--ink);line-height:1.2;margin-bottom:10px}
+.slide-title span{color:var(--red)}
+.slide-body{font-size:14px;color:var(--ink2);line-height:1.8;max-width:540px;margin-bottom:28px}
+.split{display:grid;grid-template-columns:1fr 1fr}
+.split-text{padding:40px 44px;display:flex;flex-direction:column;justify-content:center}
+.split-visual{background:var(--base);padding:32px 24px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.split-visual.ink{background:var(--ink)}
+.vis-label{font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3);text-align:center}
+.phone-pair{display:flex;gap:18px;align-items:flex-start;justify-content:center}
+.phone{width:138px;background:var(--base);border-radius:26px;border:5px solid var(--ink);overflow:hidden}
+.pn-notch{width:54px;height:15px;background:var(--ink);border-radius:0 0 9px 9px;margin:0 auto}
+.pn-sb{display:flex;justify-content:space-between;padding:5px 11px 2px;font-size:9px;font-weight:500;color:var(--ink)}
+.pn-head{padding:8px 11px 4px}
+.pn-greet{font-size:9px;color:var(--ink3)}
+.pn-name{font-size:11px;font-weight:500;color:var(--ink)}
+.pn-card{margin:4px 8px;border-radius:11px;padding:12px;background:var(--ink);color:#fff}
+.pn-lbl{font-size:8px;color:rgba(255,255,255,0.35);letter-spacing:.3px;margin-bottom:2px}
+.pn-amt{font-size:21px;font-weight:500;color:#fff}
+.pn-sub{font-size:8px;color:rgba(255,255,255,0.25);margin-top:1px}
+.pn-div{height:.5px;background:rgba(255,255,255,.1);margin:8px 0}
+.pn-row{display:flex;justify-content:space-between;margin-bottom:4px}
+.pn-rlbl{font-size:8px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:3px}
+.pn-dot{width:4px;height:4px;border-radius:50%;display:inline-block}
+.pn-rval{font-size:8px;color:rgba(255,255,255,.55)}
+.pn-avrow{display:flex;justify-content:space-between;align-items:center;margin-top:7px;padding-top:7px;border-top:.5px solid rgba(255,255,255,.1)}
+.pn-avlbl{font-size:8px;color:rgba(255,255,255,.6);font-weight:500}
+.pn-avamt{font-size:15px;font-weight:500;color:var(--red)}
+.pn-feel{font-size:8px;color:var(--ink3);padding:6px 11px 10px;line-height:1.4}
+.pn-caption{text-align:center;margin-top:7px}
+.pn-clbl{font-size:9px;color:var(--ink3)}
+.pn-cval{font-size:12px;font-weight:500;color:var(--ink)}
+.ph-arr{display:flex;align-items:center;padding-top:44px;color:var(--border)}
+.eq-wrap{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:20px 0}
+.eq-pill{border-radius:9px;padding:9px 14px;font-size:13px;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:86px}
+.eq-lbl{font-size:9px;font-weight:400;color:var(--ink3);letter-spacing:.3px;text-transform:uppercase}
+.eq-op{font-size:20px;color:var(--border);font-weight:300}
+.pill-base{background:var(--lift);color:var(--ink)}
+.pill-gray{background:var(--lift);color:var(--ink2)}
+.pill-red{background:var(--red-light);color:var(--red)}
+.wf-row{display:flex;align-items:center;gap:9px;margin-bottom:7px}
+.wf-ico{width:28px;height:28px;border-radius:7px;background:var(--lift);display:flex;align-items:center;justify-content:center}
+.wf-ico .mdi{font-size:14px;color:var(--ink3)}
+.wf-bar{height:34px;border-radius:8px;display:flex;align-items:center;padding:0 12px;justify-content:space-between;flex:1}
+.wf-n{font-size:11px;font-weight:500}
+.wf-v{font-size:11px;font-weight:500}
+.wf-total{background:var(--ink)}.wf-total .wf-n,.wf-total .wf-v{color:#fff}
+.wf-sub{background:var(--lift)}.wf-sub .wf-n{color:var(--ink2)}.wf-sub .wf-v{color:var(--ink2)}
+.wf-result{background:var(--red-light);border:1px solid var(--red)}.wf-result .wf-n{color:var(--red)}.wf-result .wf-v{color:var(--red);font-size:15px}
+.wf-sep{height:1px;background:var(--border);margin:4px 0 8px 37px}
+.coach-card{background:var(--surface);border-radius:17px;border:.5px solid var(--border);padding:18px;max-width:300px}
+.cc-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.cc-icon{width:32px;height:32px;border-radius:9px;background:var(--lift);display:flex;align-items:center;justify-content:center}
+.cc-icon .mdi{font-size:16px;color:var(--ink)}
+.cc-title{font-size:12px;font-weight:500;color:var(--ink)}
+.cc-sub{font-size:10px;color:var(--ink3)}
+.cc-body{font-size:12px;color:var(--ink2);line-height:1.6;margin-bottom:11px}
+.cc-hi{color:var(--red);font-weight:500}
+.cc-prog{background:var(--base);border-radius:9px;padding:10px 12px;margin-bottom:10px}
+.cc-pt{display:flex;justify-content:space-between;margin-bottom:5px}
+.cc-pname{font-size:11px;font-weight:500;color:var(--ink);display:flex;align-items:center;gap:5px}
+.cc-pname .mdi{font-size:13px;color:var(--ink2)}
+.cc-ppct{font-size:11px;color:var(--red);font-weight:500}
+.cc-bwrap{height:4px;background:var(--border);border-radius:2px;position:relative;margin-bottom:4px}
+.cc-bfill{height:4px;border-radius:2px;background:var(--ink2)}
+.cc-bnew{height:4px;border-radius:0 2px 2px 0;background:var(--red);position:absolute;top:0}
+.cc-pfoot{display:flex;justify-content:space-between}
+.cc-pfl{font-size:10px;color:var(--ink3)}
+.cc-pfr{font-size:10px;color:var(--red)}
+.cc-note{display:flex;gap:7px;background:var(--lift);border-radius:8px;padding:8px 10px;margin-bottom:11px;align-items:flex-start}
+.cc-note .mdi{font-size:16px;color:var(--ink2);flex-shrink:0;margin-top:1px}
+.cc-note-text{font-size:10px;color:var(--ink2);line-height:1.5}
+.cc-note-text b{color:var(--ink);font-weight:500}
+.cc-btns{display:flex;gap:7px}
+.cc-btn-p{flex:2;background:var(--ink);color:#fff;border:none;border-radius:9px;padding:9px 0;font-size:11px;font-weight:500;text-align:center}
+.cc-btn-g{flex:1;background:var(--lift);color:var(--ink2);border:none;border-radius:9px;padding:9px 0;font-size:11px;text-align:center}
+.tchain{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.tbox{border-radius:9px;padding:9px 12px;text-align:center;flex:1;min-width:84px}
+.tbox-base{background:var(--lift)}
+.tbox-red{background:var(--red-light)}
+.tbox-ink{background:var(--ink)}
+.tb-lbl{font-size:9px;color:var(--ink3);letter-spacing:.3px;text-transform:uppercase;margin-bottom:2px}
+.tb-lbl-w{font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.3px;text-transform:uppercase;margin-bottom:2px}
+.tb-val{font-size:12px;font-weight:500;color:var(--ink)}
+.tb-val-r{font-size:12px;font-weight:500;color:var(--red)}
+.tb-val-w{font-size:12px;font-weight:500;color:#fff}
+.tb-sub{font-size:9px;color:var(--ink3);margin-top:1px}
+.tb-sub-r{font-size:9px;color:var(--red);margin-top:1px;opacity:.7}
+.tb-sub-w{font-size:9px;color:rgba(255,255,255,.3);margin-top:1px}
+.t-arr{color:var(--border);font-size:15px}
+.cpair{display:flex;gap:24px;padding:24px 44px 24px;border-top:0.5px solid var(--border);margin-top:0}
+.cp{flex:1;border-radius:11px;padding:14px}
+.cp-ink{background:var(--ink)}
+.cp-red{background:var(--red)}
+.cp-lbl{font-size:9px;color:rgba(255,255,255,.75);letter-spacing:.4px;text-transform:uppercase;margin-bottom:6px}
+.cp-text{font-size:12px;color:#fff;font-weight:500;line-height:1.5}
+.steps{padding:4px 44px 32px;display:flex;flex-direction:column}
+.step{display:flex;align-items:stretch}
+.step-line{display:flex;flex-direction:column;align-items:center;width:26px;flex-shrink:0}
+.s-dot{width:9px;height:9px;border-radius:50%;margin-top:5px;flex-shrink:0}
+.s-stem{flex:1;width:1px;background:var(--border);margin:3px 0}
+.step-body{flex:1;padding:0 0 20px 13px}
+.s-q{font-size:10px;color:var(--ink3);font-weight:500;letter-spacing:.3px;margin-bottom:3px}
+.s-title{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.s-desc{font-size:12px;color:var(--ink2);line-height:1.6}
+.s-tag{display:inline-block;margin-top:5px;font-size:9px;padding:2px 8px;border-radius:20px;font-weight:500;background:var(--lift);color:var(--ink2)}
+.s-tag-red{background:var(--red-light);color:var(--red)}
+.yr-sec{padding:0 44px}
+.yr-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-top:28px}
+.yr-badge{padding:4px 14px;border-radius:20px;font-size:11px;font-weight:500}
+.yb-ink{background:var(--ink);color:#fff}
+.yb-red{background:var(--red);color:#fff}
+.yr-title{font-size:13px;font-weight:500;color:var(--ink)}
+.yr-sub{font-size:11px;color:var(--ink3)}
+.milestone{border-radius:11px;padding:11px 14px;margin:4px 0 24px;display:flex;align-items:center;gap:8px;font-size:11px;line-height:1.5}
+.milestone .mdi{font-size:16px;flex-shrink:0}
+.ms-ink{background:var(--ink);color:rgba(255,255,255,.7)}
+.ms-ink .mdi{color:rgba(255,255,255,.3)}
+.ms-red{background:var(--red-light);color:var(--red)}
+.ms-red .mdi{color:var(--red)}
+.yr-div{height:1px;background:var(--lift);margin:0 44px}
+.signals{padding:0 44px 32px;display:flex;flex-direction:column;gap:9px}
+.sig{background:var(--surface);border-radius:11px;border:.5px solid var(--border);padding:14px 16px;display:flex;gap:11px}
+.sig-ico{width:34px;height:34px;border-radius:9px;background:var(--lift);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sig-ico .mdi{font-size:18px;color:var(--ink2)}
+.sig-ico-red{background:var(--red-light)}
+.sig-ico-red .mdi{color:var(--red)}
+.sig-title{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.sig-desc{font-size:11px;color:var(--ink2);line-height:1.5}
+.sig-stat{display:inline-block;margin-top:5px;font-size:10px;font-weight:500;padding:2px 10px;border-radius:20px;background:var(--lift);color:var(--ink2)}
+.sig-stat-red{background:var(--red-light);color:var(--red)}
+.q-block{background:var(--ink);border-radius:15px;padding:24px;margin:0 44px 28px}
+.q-lbl{font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+.q-text{font-size:20px;font-weight:500;color:#fff;line-height:1.45;margin-bottom:10px;font-style:italic}
+.q-text span{color:var(--red)}
+.q-attr{font-size:10px;color:rgba(255,255,255,.25)}
+.status-row{display:flex;gap:8px;padding:0 44px 32px}
+.s-box{flex:1;border-radius:9px;padding:12px;text-align:center;background:var(--lift)}
+.s-ico{margin-bottom:5px}
+.s-ico .mdi{font-size:18px;color:var(--ink2)}
+.s-lbl{font-size:10px;font-weight:500;color:var(--ink)}
+.s-sub{font-size:9px;color:var(--ink3);margin-top:2px;line-height:1.3}
+.s-box-red{background:var(--red-light)}
+.s-box-red .s-lbl{color:var(--red)}
+.s-box-red .s-ico .mdi{color:var(--red)}
+.pos-map{width:100%;max-width:340px;height:250px;position:relative;margin:0 auto}
+.pm-h{position:absolute;left:10px;right:10px;top:50%;height:1px;background:var(--border)}
+.pm-v{position:absolute;top:10px;bottom:10px;left:50%;width:1px;background:var(--border)}
+.pm-lbl{position:absolute;font-size:10px;color:var(--ink3);font-weight:500}
+.cn{position:absolute;display:flex;flex-direction:column;align-items:center;gap:3px}
+.cn-d{border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:500;background:var(--lift);color:var(--ink3)}
+.cn-n{font-size:9px;color:var(--ink3)}
+.tbc-n{position:absolute;display:flex;flex-direction:column;align-items:center;gap:4px}
+.tbc-d{width:42px;height:42px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#fff}
+.tbc-l{font-size:10px;font-weight:500;color:var(--ink);white-space:nowrap}
+.pillars{display:flex;gap:8px;margin-top:20px}
+.pillar{flex:1;border-radius:11px;padding:14px;text-align:center}
+.p-ink{background:var(--ink)}
+.p-red{background:var(--red)}
+.p-lift{background:var(--lift)}
+.p-ico{margin-bottom:7px}
+.p-ico .mdi{font-size:22px}
+.p-ink .p-ico .mdi,.p-red .p-ico .mdi{color:rgba(255,255,255,.5)}
+.p-lift .p-ico .mdi{color:var(--ink2)}
+.p-title{font-size:11px;font-weight:500;margin-bottom:3px}
+.p-title-w{color:#fff}
+.p-title-k{color:var(--ink)}
+.p-sub{font-size:10px;line-height:1.4}
+.p-sub-w{color:rgba(255,255,255,.45)}
+.p-sub-k{color:var(--ink2)}
+.lessons{padding:0 44px 32px;display:flex;flex-direction:column;gap:10px}
+.lesson{border-radius:13px;padding:18px}
+.l-num{font-size:9px;color:rgba(255,255,255,.25);letter-spacing:.5px;text-transform:uppercase;margin-bottom:6px}
+.l-title{font-size:15px;font-weight:500;color:#fff;margin-bottom:7px;line-height:1.3}
+.l-body{font-size:12px;color:rgba(255,255,255,.55);line-height:1.65}
+.l-body span{color:#fff;font-weight:500}
+.l-ink{background:var(--ink)}
+.l-mid{background:#2E2E2C}
+.l-dark{background:#222220}
+.closing{background:var(--lift);padding:52px 44px}
+.cl-top{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.cl-avi{width:52px;height:52px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:500;color:#fff;flex-shrink:0}
+.cl-name{font-size:18px;font-weight:500;color:#fff}
+.cl-role{font-size:12px;color:rgba(255,255,255,.3);margin-top:3px;line-height:1.5}
+.cl-div{height:.5px;background:rgba(255,255,255,.08);margin-bottom:24px}
+.cl-stmt{font-size:15px;color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:24px}
+.cl-stmt span{color:#fff;font-weight:500}
+.cl-stmt em{color:var(--red);font-style:normal;font-weight:500}
+.cl-inv{font-size:13px;color:rgba(255,255,255,.35);line-height:1.75;border-top:.5px solid rgba(255,255,255,.07);padding-top:20px;margin-bottom:28px}
+.cl-inv span{color:rgba(255,255,255,.75)}
+.cl-recap{display:flex;gap:8px}
+.cr-box{flex:1;background:rgba(255,255,255,.04);border-radius:9px;padding:12px;text-align:center;border:.5px solid rgba(255,255,255,.07)}
+.cr-ico{margin-bottom:5px}
+.cr-ico .mdi{font-size:20px;color:rgba(255,255,255,.35)}
+.cr-lbl{font-size:10px;font-weight:500;color:rgba(255,255,255,.6);margin-bottom:2px}
+.cr-sub{font-size:9px;color:rgba(255,255,255,.25);line-height:1.4}
+.strip{background:var(--lift);padding:16px 44px;border-top:.5px solid var(--border)}
+.strip-lbl{font-size:10px;color:var(--ink3);letter-spacing:.4px;text-transform:uppercase;margin-bottom:5px}
+.strip-text{font-size:13px;color:var(--ink2);line-height:1.65}
+.strip-text span{color:var(--ink);font-weight:500}
+@media(max-width:640px){
+.split{grid-template-columns:1fr}
+.hero{padding:40px 24px}
+.hero-title{font-size:30px}
+.slide-header,.steps,.signals,.yr-sec,.lessons,.cpair,.status-row,.q-block{padding-left:24px;padding-right:24px}
+.yr-div{margin:0 24px}
+.strip{padding-left:24px;padding-right:24px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- COVER -->
+<div class="slide">
+<div class="hero">
+  <div class="hero-badge"><div class="hb-dot"></div><div class="hb-text">Introducing Clarity</div></div>
+  <div class="hero-title">A layer that shows<br>what's <span>really yours</span> –<br>after obligations,<br>habits, and reality.</div>
+  <div class="hero-sub">Clarity is an intelligent financial layer built into everyday banking. It shows customers what they actually have after obligations — and quietly helps them move toward what they want.</div>
+  <div class="hero-meta">
+    <div class="hm-item"><label>Author</label><span>Archil Vardidze</span></div>
+    <div class="hm-item"><label>Role</label><span>Chief Design Officer</span></div>
+    <div class="hm-item"><label>Scope</label><span>Vision · Strategy · 2-year roadmap</span></div>
+    <div class="hm-item"><label>Status</label><span>In development · Year 1 underway</span></div>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 1 -->
+<div class="slide">
+<div class="split">
+  <div class="split-text">
+    <div class="eyebrow"><span class="eyebrow-num">1</span>The problem</div>
+    <div class="slide-title">Everyone knows their balance.<br><span>Nobody knows their number.</span></div>
+    <div class="slide-body">A customer opens the app. Balance: ₾6,000. They feel fine.<br><br>Three days later, rent is due. Then the kids' club. Groceries. Gas. School supplies. The "feeling fine" disappears — not because anything went wrong, but because the app never told them the truth.<br><br>This is the gap at the center of Clarity. Not a UX problem. A fundamentally wrong mental model baked into every banking app in the world.</div>
+  </div>
+  <div class="split-visual">
+    <div class="vis-label" style="margin-bottom:14px;">Before Clarity &nbsp;→&nbsp; With Clarity</div>
+    <div class="phone-pair">
+      <div>
+        <div class="phone">
+          <div class="pn-notch"></div>
+          <div class="pn-sb"><span>9:41</span><span>···</span></div>
+          <div class="pn-head"><div class="pn-greet">Good morning,</div><div class="pn-name">Archil</div></div>
+          <div class="pn-card">
+            <div class="pn-lbl">BALANCE</div>
+            <div class="pn-amt">₾6,000</div>
+            <div class="pn-sub">Updated just now</div>
+          </div>
+          <div class="pn-feel">You feel fine. Nothing to worry about.</div>
+        </div>
+        <div class="pn-caption"><div class="pn-clbl">Shows</div><div class="pn-cval">₾6,000</div></div>
+      </div>
+      <div class="ph-arr"><i class="mdi mdi-arrow-right" style="color:var(--border);font-size:20px;"></i></div>
+      <div>
+        <div class="phone">
+          <div class="pn-notch"></div>
+          <div class="pn-sb"><span>9:41</span><span>···</span></div>
+          <div class="pn-head"><div class="pn-greet">Good morning,</div><div class="pn-name">Archil</div></div>
+          <div class="pn-card">
+            <div class="pn-lbl">TOTAL BALANCE</div>
+            <div class="pn-amt">₾6,000</div>
+            <div class="pn-div"></div>
+            <div class="pn-row"><div class="pn-rlbl"><span class="pn-dot" style="background:rgba(255,255,255,.3)"></span>Rent &amp; bills</div><div class="pn-rval">−₾3,200</div></div>
+            <div class="pn-row"><div class="pn-rlbl"><span class="pn-dot" style="background:rgba(255,255,255,.3)"></span>Kids &amp; school</div><div class="pn-rval">−₾800</div></div>
+            <div class="pn-row"><div class="pn-rlbl"><span class="pn-dot" style="background:rgba(255,255,255,.3)"></span>Groceries &amp; gas</div><div class="pn-rval">−₾1,500</div></div>
+            <div class="pn-avrow">
+              <div class="pn-avlbl">Clarity</div>
+              <div class="pn-avamt">₾500</div>
+            </div>
+          </div>
+          <div class="pn-feel" style="color:var(--red);">What's actually yours.</div>
+        </div>
+        <div class="pn-caption"><div class="pn-clbl">Yours</div><div class="pn-cval" style="color:var(--red);">₾500</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide">
+<div class="split">
+  <div class="split-visual">
+    <div class="vis-label" style="margin-bottom:14px;">What every banking app offers today</div>
+    <div class="phone" style="width:176px;">
+      <div class="pn-notch"></div>
+      <div class="pn-sb"><span>9:41</span><span>···</span></div>
+      <div class="pn-head"><div class="pn-greet">My account</div><div class="pn-name" style="font-size:13px;">Personal</div></div>
+      <div class="pn-card">
+        <div class="pn-lbl">CURRENT BALANCE</div>
+        <div class="pn-amt">₾6,000</div>
+      </div>
+      <div style="display:flex;gap:0;margin:7px 9px 0;border-bottom:.5px solid var(--border);">
+        <div style="font-size:9px;padding:5px 8px;color:var(--ink);font-weight:500;border-bottom:1.5px solid var(--ink);margin-bottom:-1px;">Transactions</div>
+        <div style="font-size:9px;padding:5px 8px;color:var(--ink3);">Analytics</div>
+        <div style="font-size:9px;padding:5px 8px;color:var(--ink3);">Cards</div>
+      </div>
+      <div style="margin:0 9px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:.5px solid var(--lift);">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:20px;height:20px;border-radius:5px;background:var(--lift);display:flex;align-items:center;justify-content:center;"><i class="mdi mdi-cart-outline" style="font-size:11px;color:var(--ink3);"></i></div>
+            <div><div style="font-size:9px;color:var(--ink);">Carrefour</div><div style="font-size:8px;color:var(--ink3);">Yesterday</div></div>
+          </div>
+          <div style="font-size:9px;color:var(--ink2);">−₾84</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:.5px solid var(--lift);">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:20px;height:20px;border-radius:5px;background:var(--lift);display:flex;align-items:center;justify-content:center;"><i class="mdi mdi-gas-station-outline" style="font-size:11px;color:var(--ink3);"></i></div>
+            <div><div style="font-size:9px;color:var(--ink);">Lukoil</div><div style="font-size:8px;color:var(--ink3);">2 days ago</div></div>
+          </div>
+          <div style="font-size:9px;color:var(--ink2);">−₾120</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:20px;height:20px;border-radius:5px;background:var(--lift);display:flex;align-items:center;justify-content:center;"><i class="mdi mdi-bank-transfer-in" style="font-size:11px;color:var(--ink3);"></i></div>
+            <div><div style="font-size:9px;color:var(--ink);">Salary</div><div style="font-size:8px;color:var(--ink3);">Apr 1</div></div>
+          </div>
+          <div style="font-size:9px;color:var(--ink);">+₾4,200</div>
+        </div>
+      </div>
+      <div style="margin:6px 9px 12px;">
+        <div style="font-size:8px;color:var(--ink3);margin-bottom:4px;">Spending · March</div>
+        <div style="display:flex;align-items:flex-end;gap:3px;height:36px;">
+          <div style="flex:1;height:70%;background:var(--lift);border-radius:2px 2px 0 0;"></div>
+          <div style="flex:1;height:45%;background:var(--lift);border-radius:2px 2px 0 0;"></div>
+          <div style="flex:1;height:90%;background:var(--border);border-radius:2px 2px 0 0;"></div>
+          <div style="flex:1;height:55%;background:var(--lift);border-radius:2px 2px 0 0;"></div>
+          <div style="flex:1;height:30%;background:var(--lift);border-radius:2px 2px 0 0;"></div>
+          <div style="flex:1;height:60%;background:var(--lift);border-radius:2px 2px 0 0;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="split-text">
+    <div class="eyebrow"><span class="eyebrow-num">2</span>The gap</div>
+    <div class="slide-title">Banks report the past.<br>Customers need to<br><span>navigate the future.</span></div>
+    <div class="slide-body">Standard banking apps are rear-view mirrors. Transactions, categories, monthly summaries. The numbers are accurate. But they answer the wrong question.<br><br>Customers aren't asking where their money went. They're asking something harder.</div>
+    <div style="background:var(--ink);border-radius:13px;padding:16px 18px;">
+      <div style="font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;">The question no app answers</div>
+      <div style="font-size:16px;font-weight:500;color:#fff;line-height:1.5;margin-bottom:8px;">"What can I <span style="color:var(--red);">actually do</span> with what I have?"</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.3);line-height:1.6;">Clarity is built to answer this — automatically, every day, without asking customers to do any work.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide">
+<div class="slide-header">
+  <div class="eyebrow"><span class="eyebrow-num">3</span>The solution</div>
+  <div class="slide-title">Your balance is what's in the account.<br><span>Clarity is what's actually yours.</span></div>
+  <div class="slide-body">Clarity automatically identifies every committed obligation — rent, subscriptions, recurring bills — and subtracts them in real time. No setup. No categories to fill in. The right number is always there.</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;">
+  <div style="padding:0 44px 36px;">
+    <div style="font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;">The calculation</div>
+    <div class="eq-wrap">
+      <div class="eq-pill pill-base"><div class="eq-lbl">Your balance</div><div>₾6,000</div></div>
+      <div class="eq-op">−</div>
+      <div class="eq-pill pill-gray"><div class="eq-lbl">Obligations</div><div>₾3,200</div></div>
+      <div class="eq-op">−</div>
+      <div class="eq-pill pill-gray"><div class="eq-lbl">Active goals</div><div>₾2,300</div></div>
+      <div class="eq-op">=</div>
+      <div class="eq-pill pill-red"><div class="eq-lbl">Clarity</div><div style="color:var(--red);">₾500</div></div>
+    </div>
+  </div>
+  <div style="padding:0 44px 36px;border-left:.5px solid var(--lift);">
+    <div style="font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;">The breakdown</div>
+    <div class="wf-row"><div class="wf-ico"><i class="mdi mdi-credit-card-outline"></i></div><div class="wf-bar wf-total"><div class="wf-n">Account balance</div><div class="wf-v">₾6,000</div></div></div>
+    <div class="wf-row"><div class="wf-ico"><i class="mdi mdi-home-outline"></i></div><div class="wf-bar wf-sub"><div class="wf-n">Committed obligations</div><div class="wf-v">₾3,200</div></div></div>
+    <div class="wf-row"><div class="wf-ico"><i class="mdi mdi-flag-outline"></i></div><div class="wf-bar wf-sub"><div class="wf-n">Goals in progress</div><div class="wf-v">₾2,300</div></div></div>
+    <div class="wf-sep"></div>
+    <div class="wf-row"><div class="wf-ico" style="background:var(--red-light);"><i class="mdi mdi-check" style="color:var(--red);font-size:14px;"></i></div><div class="wf-bar wf-result"><div class="wf-n">Clarity</div><div class="wf-v">₾500</div></div></div>
+  </div>
+</div>
+<div class="strip">
+  <div class="strip-lbl">Design principle</div>
+  <div class="strip-text">Clarity requires <span>zero input from the customer.</span> It learns from transaction history, updates in real time, and is always on. The truth is visible without asking for it.</div>
+</div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide">
+<div class="split">
+  <div class="split-text">
+    <div class="eyebrow"><span class="eyebrow-num">4</span>The intelligence layer</div>
+    <div class="slide-title">Clarity tells you<br>where you stand.<br><span>The AI shows you<br>where to go.</span></div>
+    <div class="slide-body">Once a customer sees their Clarity number, the next question is natural: what should I do with it?<br><br>The intelligence layer answers that — proactively, at the right moment, with a specific action tied to something the customer actually cares about.</div>
+    <div class="tchain">
+      <div class="tbox tbox-base"><div class="tb-lbl">Trigger</div><div class="tb-val">Salary deposit</div><div class="tb-sub">₾4,200 · now</div></div>
+      <div class="t-arr"><i class="mdi mdi-arrow-right"></i></div>
+      <div class="tbox tbox-red"><div class="tb-lbl" style="color:var(--red);opacity:.6;">Detects</div><div class="tb-val-r">₾500 free</div><div class="tb-sub-r">after obligations</div></div>
+      <div class="t-arr"><i class="mdi mdi-arrow-right"></i></div>
+      <div class="tbox tbox-ink"><div class="tb-lbl-w">Surfaces</div><div class="tb-val-w">Smart moment</div><div class="tb-sub-w">timely · specific</div></div>
+    </div>
+  </div>
+  <div class="split-visual ink">
+    <div class="coach-card">
+      <div class="cc-head">
+        <div class="cc-icon"><i class="mdi mdi-compass-outline"></i></div>
+        <div><div class="cc-title">Clarity insight</div><div class="cc-sub">Based on your Clarity number</div></div>
+      </div>
+      <div class="cc-body">You have <span class="cc-hi">₾500 free</span> this month. Moving <span class="cc-hi">₾200 now</span> puts your Japan trip in reach <span class="cc-hi">3 months earlier.</span></div>
+      <div class="cc-prog">
+        <div class="cc-pt">
+          <div class="cc-pname"><i class="mdi mdi-airplane"></i> Japan trip</div>
+          <div class="cc-ppct">42% → 50%</div>
+        </div>
+        <div class="cc-bwrap"><div class="cc-bfill" style="width:42%"></div><div class="cc-bnew" style="left:42%;width:8%"></div></div>
+        <div class="cc-pfoot"><div class="cc-pfl">₾2,100 saved of ₾5,000</div><div class="cc-pfr">+₾200 today</div></div>
+      </div>
+      <div class="cc-note">
+        <i class="mdi mdi-calendar-clock"></i>
+        <div class="cc-note-text"><b>Cherry blossom season:</b> late March. At this new pace, you arrive on time.</div>
+      </div>
+      <div class="cc-btns">
+        <div class="cc-btn-p">Move ₾200 to Japan</div>
+        <div class="cc-btn-g">Later</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="strip" style="padding-top:20px;padding-bottom:20px;">
+  <div class="strip-lbl">The difference</div>
+  <div style="display:flex;gap:24px;margin-top:12px;">
+    <div class="cp cp-ink" style="flex:1;"><div class="cp-lbl">What PFM tools do</div><div class="cp-text">"You spent ₾200 on dining last month"</div></div>
+    <div class="cp cp-red" style="flex:1;"><div class="cp-lbl">What Clarity does</div><div class="cp-text">"Here's how to reach Japan 3 months faster"</div></div>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide">
+<div class="slide-header">
+  <div class="eyebrow"><span class="eyebrow-num">5</span>How this got built</div>
+  <div class="slide-title">The hardest design problem<br>wasn't the product. It was convincing<br><span>the org the problem was real.</span></div>
+  <div class="slide-body">When I brought Clarity forward, the first reaction from product was: "we already have PFM." I had to demonstrate that this wasn't an iteration on analytics — it was a different thesis about what a bank is for.</div>
+</div>
+<div class="steps">
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--ink)"></div><div class="s-stem"></div></div>
+    <div class="step-body"><div class="s-q">Move 1</div><div class="s-title">Led with the business problem, not the design concept</div><div class="s-desc">Framed it as: customers don't trust their own balance, and that distrust erodes engagement and loyalty. Brought data before designs. Product directors need business problems, not feature ideas.</div><span class="s-tag">Business framing</span></div>
+  </div>
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--ink)"></div><div class="s-stem"></div></div>
+    <div class="step-body"><div class="s-q">Move 2</div><div class="s-title">Ran research that made the problem undeniable</div><div class="s-desc">Customers carry an average of 8–11 recurring committed payments invisible to them at balance-check time. The gap between "balance" and "what's mine" wasn't a perception problem — it was a data problem we could solve.</div><span class="s-tag s-tag-red">Customer evidence</span></div>
+  </div>
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--ink)"></div><div class="s-stem"></div></div>
+    <div class="step-body"><div class="s-q">Move 3</div><div class="s-title">Named it so product could own it</div><div class="s-desc">"Clarity" became a product concept, not a design concept. Product directors could put it in roadmap presentations without translating from design language. Names are organizational infrastructure.</div><span class="s-tag">Language as strategy</span></div>
+  </div>
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--red)"></div><div class="s-stem" style="background:transparent"></div></div>
+    <div class="step-body"><div class="s-q">Move 4</div><div class="s-title">Designed the roadmap to be easy to say yes to</div><div class="s-desc">Phased, de-risked, with a measurable gate at each stage. Leadership didn't have to bet on a vision — they could approve one quarter at a time.</div><span class="s-tag">Org alignment</span></div>
+  </div>
+</div>
+<div class="strip">
+  <div class="strip-lbl">Key lesson</div>
+  <div class="strip-text"><span>"Beautiful ideas don't move organizations. Quantified pain does."</span> Clarity became a roadmap commitment when paired with customer evidence and a clear business case.</div>
+</div>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide">
+<div class="slide-header">
+  <div class="eyebrow"><span class="eyebrow-num">6</span>The plan</div>
+  <div class="slide-title">Two years. <span>From a single number to a financial health platform.</span></div>
+  <div class="slide-body">Each phase proves something before asking for more. Year 1 ships Clarity and the first AI insight. Year 2 turns both into a platform that thinks alongside the customer.</div>
+</div>
+<div class="yr-sec">
+  <div class="yr-head"><div class="yr-badge yb-ink">Year 1</div><div><div class="yr-title">Foundation — 0 to 1</div><div class="yr-sub">Ship Clarity. Prove engagement. Introduce the first smart moment.</div></div></div>
+</div>
+<div class="steps">
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--ink2)"></div><div class="s-stem"></div></div>
+    <div class="step-body"><div class="s-q">Q1 – Q2</div><div class="s-title">Clarity launches</div><div class="s-desc">Obligations engine detects recurring and committed payments from transaction history. Clarity number appears on the home screen — no user setup, no categories, no manual input. The right number is always visible.</div><span class="s-tag">Core feature</span></div>
+  </div>
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--ink2)"></div><div class="s-stem"></div></div>
+    <div class="step-body"><div class="s-q">Q3</div><div class="s-title">Goals layer ships</div><div class="s-desc">Customers set savings goals — Japan trip, school laptop, emergency fund. Clarity suggests allocation amounts when there's room. First touch of intelligence: the app starts working for the customer, not just recording history.</div><span class="s-tag">Goals &amp; savings</span></div>
+  </div>
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--ink)"></div><div class="s-stem" style="background:transparent"></div></div>
+    <div class="step-body"><div class="s-q">Q4</div><div class="s-title">First AI insight goes live</div><div class="s-desc">Proactive nudge triggered by salary deposit. Single use case, tested, measured against savings activation and goal engagement. The moment the product stops being a ledger and becomes a guide.</div><span class="s-tag s-tag-red">AI insight</span></div>
+  </div>
+</div>
+<div class="yr-div"></div>
+<div class="yr-div"></div>
+<div class="yr-sec">
+  <div class="yr-head"><div class="yr-badge yb-red">Year 2</div><div><div class="yr-title">Intelligence — 1 to 100</div><div class="yr-sub">Expand from a moment to a platform. Make it feel like the bank is thinking alongside you.</div></div></div>
+</div>
+<div class="steps">
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--ink2)"></div><div class="s-stem"></div></div>
+    <div class="step-body"><div class="s-q">Q1 – Q2</div><div class="s-title">AI learns timing, not just amounts</div><div class="s-desc">Expand beyond salary deposits — spending dips, bill clusters, seasonal patterns all become triggers. Intelligence deepens without the customer noticing.</div><span class="s-tag">AI &amp; ML</span></div>
+  </div>
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--ink2)"></div><div class="s-stem"></div></div>
+    <div class="step-body"><div class="s-q">Q3</div><div class="s-title">AI suggests goals, not just tracks them</div><div class="s-desc">Surfaces goal ideas from behavioral patterns — "You spend ₾80/month on coffee. In 6 months, that's a flight to Istanbul." The product starts generating financial aspiration, not just tracking it.</div><span class="s-tag">Proactive intelligence</span></div>
+  </div>
+  <div class="step">
+    <div class="step-line"><div class="s-dot" style="background:var(--red)"></div><div class="s-stem" style="background:transparent"></div></div>
+    <div class="step-body"><div class="s-q">Q4</div><div class="s-title">Clarity becomes the default, everywhere</div><div class="s-desc">Replaces standard balance as the primary display on mobile, web, and ATM. The platform is complete — financial health is woven into every interaction, not a feature you have to find.</div><span class="s-tag s-tag-red">Platform scale</span></div>
+  </div>
+</div>
+<div class="strip">
+  <div class="strip-lbl">Year 2 target</div>
+  <div class="strip-text"><span>Customers with active goals retain at 2× the rate of those without.</span> Clarity is the default balance display for all active users.</div>
+</div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide">
+<div class="slide-header">
+  <div class="eyebrow"><span class="eyebrow-num">7</span>Early signal</div>
+  <div class="slide-title">This isn't a concept deck.<br><span>Parts of this are already in motion.</span></div>
+  <div class="slide-body">Clarity is a live initiative. Here's what the early evidence looks like — from data, from customers, and from within the organization.</div>
+</div>
+<div class="signals">
+  <div class="sig">
+    <div class="sig-ico sig-ico-red"><i class="mdi mdi-eye-off-outline"></i></div>
+    <div><div class="sig-title">The problem is real and measurable</div><div class="sig-desc">Transaction data shows customers carry an average of 8–11 recurring committed payments invisible to them at balance-check time. The gap between "account balance" and "what's mine" isn't a feeling — it's a number. Clarity closes it automatically.</div><span class="sig-stat sig-stat-red">Avg. 8–11 invisible obligations per customer</span></div>
+  </div>
+  <div class="sig">
+    <div class="sig-ico"><i class="mdi mdi-account-voice"></i></div>
+    <div><div class="sig-title">Concept testing produced an immediate, unprompted reaction</div><div class="sig-desc">In research sessions, customers didn't need the idea explained. Their first response was frustration — not at the prototype, but at their current banking app for not doing this already. That's the strongest signal a concept can generate: demand without prompting.</div><span class="sig-stat">"Why doesn't it already work like this?" — multiple sessions</span></div>
+  </div>
+  <div class="sig">
+    <div class="sig-ico"><i class="mdi mdi-map-marker-check-outline"></i></div>
+    <div><div class="sig-title">Clarity is on the official product roadmap</div><div class="sig-desc">This moved from a design initiative to a product commitment. The obligations detection engine is being scoped by engineering. Product directors own it in roadmap presentations. This is no longer a vision — it's a plan with owners, timelines, and budget.</div><span class="sig-stat">Obligations engine in development · Year 1 underway</span></div>
+  </div>
+</div>
+<div class="q-block">
+  <div class="q-lbl">Customer research · 2025</div>
+  <div class="q-text">"Why doesn't it <span>already work</span> like this?"</div>
+  <div class="q-attr">Unprompted reaction across multiple customer segments. Not curiosity. Frustration that it didn't already exist.</div>
+</div>
+<div class="status-row">
+  <div class="s-box s-box-red"><div class="s-ico"><i class="mdi mdi-cog-outline"></i></div><div class="s-lbl">In development</div><div class="s-sub">Obligations engine</div></div>
+  <div class="s-box"><div class="s-ico"><i class="mdi mdi-check-circle-outline"></i></div><div class="s-lbl">Validated</div><div class="s-sub">Research complete</div></div>
+  <div class="s-box"><div class="s-ico"><i class="mdi mdi-flag-checkered"></i></div><div class="s-lbl">Committed</div><div class="s-sub">On product roadmap</div></div>
+</div>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide">
+<div class="split">
+  <div class="split-text">
+    <div class="eyebrow"><span class="eyebrow-num">8</span>The business case</div>
+    <div class="slide-title">Clarity is a feature.<br><span>Financial health is the position.</span></div>
+    <div class="slide-body">Most banks compete on rates, fees, and interface polish. That's a race to the bottom where no one wins differentiation.<br><br>A bank that genuinely improves how everyday customers understand their financial reality earns something banks rarely get: trust that compounds over time.</div>
+    <div class="pillars">
+      <div class="pillar p-ink"><div class="p-ico"><i class="mdi mdi-handshake-outline"></i></div><div class="p-title p-title-w">Trust</div><div class="p-sub p-sub-w">Customers who feel understood stay longer</div></div>
+      <div class="pillar p-red"><div class="p-ico"><i class="mdi mdi-account-heart-outline"></i></div><div class="p-title p-title-w">Retention</div><div class="p-sub p-sub-w">Goals users retain at 2× rate</div></div>
+      <div class="pillar p-lift"><div class="p-ico"><i class="mdi mdi-bullhorn-outline"></i></div><div class="p-title p-title-k">Advocacy</div><div class="p-sub p-sub-k">Products that help get recommended</div></div>
+    </div>
+  </div>
+  <div class="split-visual" style="flex-direction:column;">
+    <div class="vis-label" style="margin-bottom:16px;">Competitive positioning</div>
+    <div class="pos-map">
+      <div class="pm-h"></div>
+      <div class="pm-v"></div>
+      <div class="pm-lbl" style="top:6px;left:50%;transform:translateX(-50%);">Proactive</div>
+      <div class="pm-lbl" style="bottom:6px;left:50%;transform:translateX(-50%);">Reactive</div>
+      <div class="pm-lbl" style="left:2px;top:50%;transform:translateY(-50%) rotate(-90deg);">Transactional</div>
+      <div class="pm-lbl" style="right:2px;top:50%;transform:translateY(-50%) rotate(90deg);">Relational</div>
+      <div class="cn" style="left:18%;top:60%;"><div class="cn-d" style="width:22px;height:22px;">A</div><div class="cn-n">Most banks</div></div>
+      <div class="cn" style="left:28%;top:68%;"><div class="cn-d" style="width:16px;height:16px;font-size:8px;">B</div></div>
+      <div class="cn" style="left:58%;top:62%;"><div class="cn-d" style="width:20px;height:20px;">C</div><div class="cn-n">PFM apps</div></div>
+      <div class="cn" style="left:20%;top:20%;"><div class="cn-d" style="width:18px;height:18px;font-size:8px;">D</div><div class="cn-n">Neobanks</div></div>
+      <div class="tbc-n" style="right:8%;top:8%;"><div class="tbc-d">C</div><div class="tbc-l">Clarity</div></div>
+    </div>
+  </div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;border-top:0.5px solid var(--border);">
+  <div style="padding:30px 46px;border-right:0.5px solid var(--border);">
+    <div style="font-size:10.5px;letter-spacing:1.5px;color:var(--ink3);text-transform:uppercase;margin-bottom:15px;">Market opportunity (modeled)</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);margin-top:7px;flex-shrink:0;"></div><div style="font-size:12.6px;color:var(--ink2);line-height:1.6;">~1.1M–1.3M mass retail customers with recurring financial obligations</div></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);margin-top:7px;flex-shrink:0;"></div><div style="font-size:12.6px;color:var(--ink2);line-height:1.6;">8–11 financial commitments per user on average — invisible at balance-check time</div></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);margin-top:7px;flex-shrink:0;"></div><div style="font-size:12.6px;color:var(--ink2);line-height:1.6;">~70% of customers misjudge available money based on balance alone</div></div>
+    </div>
+  </div>
+  <div style="padding:30px 46px;">
+    <div style="font-size:10.5px;letter-spacing:1.5px;color:var(--ink3);text-transform:uppercase;margin-bottom:15px;">Projected impact</div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);margin-top:7px;flex-shrink:0;"></div><div style="font-size:12.6px;color:var(--ink2);line-height:1.6;">40–60% of active users adopt Clarity as primary financial reference</div></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);margin-top:7px;flex-shrink:0;"></div><div style="font-size:12.6px;color:var(--ink2);line-height:1.6;">15–25% increase in goal creation and savings behavior</div></div>
+      <div style="display:flex;gap:10px;align-items:flex-start;"><div style="width:4px;height:4px;border-radius:50%;background:var(--red);margin-top:7px;flex-shrink:0;"></div><div style="font-size:12.6px;color:var(--ink2);line-height:1.6;">1.5–2× higher retention for users with active financial goals</div></div>
+    </div>
+  </div>
+</div>
+<div style="padding:16px 44px 20px;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:24px;">
+  <div style="font-size:13px;font-weight:500;color:var(--ink);">Clarity shifts the bank from reporting money to helping customers manage it.</div>
+  <div style="font-size:10px;color:var(--ink3);white-space:nowrap;">*Estimates based on internal behavioral patterns and market benchmarks</div>
+</div>
+
+<!-- SLIDE 9 -->
+<div class="slide">
+<div class="slide-header">
+  <div class="eyebrow"><span class="eyebrow-num">9</span>What I learned</div>
+  <div class="slide-title">The biggest design decisions<br><span>weren't about the product.</span></div>
+</div>
+<div class="lessons">
+  <div class="lesson l-ink"><div class="l-num">01</div><div class="l-title">Naming is organizational infrastructure.</div><div class="l-body">"Clarity" wasn't chosen for marketing. It was chosen because <span>product directors could put it in presentations</span> without translating from design language. The right name makes an idea ownable across an organization — not just the team that created it.</div></div>
+  <div class="lesson l-mid"><div class="l-num">02</div><div class="l-title">A roadmap is a design artifact.</div><div class="l-body">How you sequence a two-year plan — what you prove first, what you de-risk early — is <span>a design decision as much as a product one.</span> The order tells the organization what you believe. Getting the sequence right was as important as getting the features right.</div></div>
+  <div class="lesson l-dark"><div class="l-num">03</div><div class="l-title">Vision without evidence is just a deck.</div><div class="l-body">Clarity became a roadmap commitment when I paired the vision with <span>customer research and a business framing.</span> The 8–11 hidden obligations number changed more conversations than any prototype. <span>Quantified pain moves organizations.</span></div></div>
+</div>
+</div>
+
+<!-- SLIDE 10 -->
+<div class="slide">
+<div class="closing">
+  <div class="cl-stmt" style="color:#1C1C1A;">Most banking software treats money as data. <span style="color:#1C1C1A;font-weight:500;">Clarity treats it as the thing that stands between a customer and the life they're trying to build.</span><br><br>The Clarity number is the first step — an honest figure, automatically calculated, always visible. The AI layer is what follows: a system that notices opportunities, surfaces them at the right moment, and makes it effortless to act.<br><br>This is what <em style="color:var(--red);font-style:normal;font-weight:500;">financial health</em> looks like when it's built into the product — not a tab you have to find, not a feature you have to remember.</div>
+  <div class="cl-inv" style="color:#6B6B68;border-top:.5px solid #E8E7E3;padding-top:20px;margin-bottom:28px;">If you're building something where design leadership means more than delivering screens — where the job is to <span style="color:#1C1C1A;font-weight:500;">see the problem others have normalized, build the case, align the organization, and ship the thing</span> — I'd like to talk.</div>
+  <div class="cl-recap">
+    <div class="cr-box" style="background:#D8D7D3;border:0.5px solid #CCCBC7;"><div class="cr-ico"><i class="mdi mdi-eye-check-outline" style="font-size:20px;color:#767673;"></i></div><div class="cr-lbl" style="color:#1C1C1A;">Clarity</div><div class="cr-sub" style="color:#6B6B68;">The honest number, always on</div></div>
+    <div class="cr-box" style="background:#D8D7D3;border:0.5px solid #CCCBC7;"><div class="cr-ico"><i class="mdi mdi-brain" style="font-size:20px;color:#767673;"></i></div><div class="cr-lbl" style="color:#1C1C1A;">AI layer</div><div class="cr-sub" style="color:#6B6B68;">Right moment, right action</div></div>
+    <div class="cr-box" style="background:#D8D7D3;border:0.5px solid #CCCBC7;"><div class="cr-ico"><i class="mdi mdi-map-outline" style="font-size:20px;color:#767673;"></i></div><div class="cr-lbl" style="color:#1C1C1A;">2-year plan</div><div class="cr-sub" style="color:#6B6B68;">Feature to platform</div></div>
+    <div class="cr-box" style="background:#D8D7D3;border:0.5px solid #CCCBC7;"><div class="cr-ico"><i class="mdi mdi-account-multiple-check-outline" style="font-size:20px;color:#767673;"></i></div><div class="cr-lbl" style="color:#1C1C1A;">2× retention</div><div class="cr-sub" style="color:#6B6B68;">The measurable outcome</div></div>
+  </div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
