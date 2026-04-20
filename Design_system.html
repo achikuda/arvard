@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clarity — Design System · Archil Vardidze</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#1C1C1A;
+  --ink2:#6B6B68;
+  --ink3:#A8A8A4;
+  --border:#E2E1DC;
+  --surface:#FFFFFF;
+  --base:#F5F4F0;
+  --lift:#EFEFEB;
+  --red:#D94035;
+  --red-lt:#FAE9E8;
+  --red-dk:#B02E24;
+}
+body{font-family:'Varela Round',sans-serif;background:var(--base);color:var(--ink);line-height:1.6;font-size:15px}
+.page{max-width:900px;margin:0 auto;padding:44px 26px 80px}
+
+/* SLIDE */
+.slide{background:var(--surface);border-radius:20px;border:0.5px solid var(--border);margin-bottom:28px;overflow:hidden}
+
+/* EYEBROW */
+.eyebrow{display:flex;align-items:center;gap:9px;font-size:9.5px;letter-spacing:2.2px;text-transform:uppercase;color:var(--ink3);margin-bottom:20px}
+.eyebrow-num{width:20px;height:20px;border-radius:50%;background:var(--lift);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--ink2);flex-shrink:0}
+
+/* COVER */
+.cover{background:var(--ink);padding:60px 52px 56px}
+.cover-badge{display:inline-flex;align-items:center;gap:8px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:36px}
+.cover-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0}
+.cover-title{font-size:44px;color:#fff;line-height:1.07;margin-bottom:16px;font-weight:500}
+.cover-title span{color:var(--red)}
+.cover-subtitle{font-size:16px;color:rgba(255,255,255,.42);max-width:520px;line-height:1.65;margin-bottom:44px}
+.cover-meta{display:flex;gap:0;border-top:0.5px solid rgba(255,255,255,.1);padding-top:24px}
+.cover-meta-item{padding-right:28px;margin-right:28px;border-right:0.5px solid rgba(255,255,255,.1)}
+.cover-meta-item:last-child{border-right:none}
+.cover-meta-label{font-size:9px;letter-spacing:1.8px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:4px}
+.cover-meta-value{font-size:12.5px;color:rgba(255,255,255,.65)}
+
+/* BODY SLIDE */
+.slide-body{padding:40px 44px}
+
+/* SPLIT */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.split-text{padding:40px 44px}
+.split-visual{background:var(--base);padding:40px 36px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.split-visual.dark{background:var(--ink)}
+
+/* CARDS ROW */
+.cards{display:grid;gap:12px;margin-top:20px}
+.cards.cols3{grid-template-columns:1fr 1fr 1fr}
+.cards.cols2{grid-template-columns:1fr 1fr}
+.card{background:var(--base);border-radius:12px;padding:20px 22px;border:0.5px solid var(--border)}
+.card.dark{background:#252522;border-color:#2e2e2b}
+.card-num{font-size:28px;color:var(--ink);line-height:1;margin-bottom:6px}
+.card-num.red{color:var(--red)}
+.card-num.white{color:#fff}
+.card-label{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.card-label.red-lt{color:rgba(217,64,53,.7)}
+.card-sub{font-size:12.5px;color:var(--ink2);line-height:1.55}
+.card-sub.white{color:rgba(255,255,255,.5)}
+
+/* BEFORE/AFTER PAIR */
+.ba-pair{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;width:100%}
+.ba-arrow{color:var(--red);font-size:18px}
+.ba-card{background:#fff;border-radius:14px;border:0.5px solid var(--border);padding:18px 18px}
+.ba-card.dark{background:#252522;border-color:#2e2e2b}
+.ba-tag{font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.ba-tag.after{color:var(--red-dk);opacity:.8}
+.ba-val{font-size:26px;color:var(--ink);line-height:1}
+.ba-val.red{color:var(--red)}
+.ba-val.white{color:#fff}
+.ba-val.muted{color:rgba(255,255,255,.35);font-size:20px}
+.ba-desc{font-size:11.5px;color:var(--ink3);margin-top:6px;line-height:1.4}
+.ba-desc.white{color:rgba(255,255,255,.4)}
+
+/* INSIGHT STRIP */
+.insight{background:var(--lift);border-top:0.5px solid var(--border);padding:18px 44px;display:flex;gap:12px;align-items:flex-start}
+.insight-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);flex-shrink:0;margin-top:1px}
+.insight-text{font-size:13px;color:var(--ink2);line-height:1.6}
+.insight.dark{background:#1a1a18;border-top-color:#2a2a28}
+.insight.dark .insight-text{color:rgba(255,255,255,.45)}
+
+/* GAP LIST */
+.gap-list{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.gap-item{display:flex;gap:14px;align-items:flex-start;padding:16px 18px;background:var(--base);border-radius:10px;border:0.5px solid var(--border)}
+.gap-n{font-size:11px;color:var(--red);letter-spacing:1px;flex-shrink:0;padding-top:1px;min-width:18px}
+.gap-content{}
+.gap-title{font-size:13.5px;color:var(--ink);margin-bottom:3px}
+.gap-body{font-size:12px;color:var(--ink2);line-height:1.5}
+
+/* PHASE FLOW */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
+.phase{background:var(--base);border-radius:12px;padding:18px 16px;border:0.5px solid var(--border);position:relative}
+.phase-n{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:8px}
+.phase-title{font-size:13.5px;color:var(--ink);margin-bottom:8px}
+.phase-body{font-size:11.5px;color:var(--ink2);line-height:1.5}
+
+/* COMPOSITES TABLE */
+.comp-table{width:100%;border-collapse:collapse;margin-top:20px}
+.comp-table tr{border-bottom:0.5px solid var(--border)}
+.comp-table tr:last-child{border-bottom:none}
+.comp-table td{padding:14px 0;vertical-align:top}
+.comp-table td:first-child{width:130px;font-size:12px;color:var(--ink);padding-right:20px}
+.comp-table td:last-child{font-size:12px;color:var(--ink2);line-height:1.5}
+
+/* TIERS */
+.tiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:20px}
+.tier{border-radius:12px;overflow:hidden;border:0.5px solid var(--border)}
+.tier-head{padding:14px 18px;font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.tier-head.reuse{background:var(--ink);color:#fff}
+.tier-head.extend{background:var(--lift);color:var(--ink)}
+.tier-head.create{background:var(--red);color:#fff}
+.tier-body{padding:16px 18px;background:var(--surface);font-size:12px;color:var(--ink2);line-height:1.55}
+
+/* METRICS ROW */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
+.metric{text-align:center;padding:24px 12px;background:var(--base);border-radius:14px;border:0.5px solid var(--border)}
+.metric-before{font-size:13px;color:var(--ink3);margin-bottom:4px;text-decoration:line-through}
+.metric-after{font-size:30px;color:var(--ink);line-height:1;margin-bottom:6px}
+.metric-change{font-size:11px;color:var(--red);letter-spacing:.5px;margin-bottom:6px}
+.metric-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3)}
+
+/* LESSONS */
+.lessons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.lesson{padding:20px 22px;background:var(--base);border-radius:12px;border:0.5px solid var(--border)}
+.lesson-n{font-size:10px;letter-spacing:1.5px;color:var(--red);text-transform:uppercase;margin-bottom:8px}
+.lesson-title{font-size:13.5px;color:var(--ink);margin-bottom:8px;line-height:1.4}
+.lesson-body{font-size:12px;color:var(--ink2);line-height:1.55}
+
+/* CLOSING */
+.closing{background:var(--ink);padding:52px 52px 48px}
+.closing-quote{font-size:22px;color:#fff;line-height:1.45;max-width:640px;margin-bottom:32px}
+.closing-quote em{color:var(--red);font-style:normal}
+.closing-stats{display:flex;gap:0;border-top:0.5px solid rgba(255,255,255,.1);padding-top:28px}
+.closing-stat{padding-right:32px;margin-right:32px;border-right:0.5px solid rgba(255,255,255,.1)}
+.closing-stat:last-child{border-right:none}
+.closing-stat-val{font-size:22px;color:#fff;margin-bottom:4px}
+.closing-stat-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+
+/* SLIDE TITLE */
+h2{font-size:27px;color:var(--ink);font-weight:500;margin-bottom:12px;line-height:1.2}
+h2 span{color:var(--red)}
+.subtitle{font-size:14px;color:var(--ink2);line-height:1.65;max-width:560px}
+
+@media(max-width:640px){
+  .split{grid-template-columns:1fr}
+  .cards.cols3{grid-template-columns:1fr}
+  .phases{grid-template-columns:1fr 1fr}
+  .tiers{grid-template-columns:1fr}
+  .metrics{grid-template-columns:1fr 1fr}
+  .lessons{grid-template-columns:1fr}
+  .cover{padding:40px 28px 40px}
+  .cover-title{font-size:32px}
+  .cover-meta{flex-wrap:wrap;gap:16px}
+  .cover-meta-item{border-right:none;padding-right:0;margin-right:0}
+  .slide-body{padding:28px 24px}
+  .split-text{padding:28px 24px}
+  .split-visual{padding:28px 24px}
+  .insight{padding:16px 24px}
+  .closing{padding:36px 28px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── COVER ─────────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="cover">
+      <div class="cover-badge"><span class="cover-badge-dot"></span>Case Study · Design System</div>
+      <div class="cover-title">From 41 components<br>to a <span>production engine.</span></div>
+      <div class="cover-subtitle">How TBC Bank's design system went from barely used to the foundation every product team builds on.</div>
+      <div class="cover-meta">
+        <div class="cover-meta-item">
+          <div class="cover-meta-label">Author</div>
+          <div class="cover-meta-value">Archil Vardidze</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="cover-meta-label">Role</div>
+          <div class="cover-meta-value">Chief Design Officer</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="cover-meta-label">Org</div>
+          <div class="cover-meta-value">TBC Bank</div>
+        </div>
+        <div class="cover-meta-item">
+          <div class="cover-meta-label">Year</div>
+          <div class="cover-meta-value">2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 01 — THE PROBLEM ─────────────────────────── -->
+  <div class="slide">
+    <div class="slide-body">
+      <div class="eyebrow"><span class="eyebrow-num">1</span>The problem</div>
+      <h2>A design system existed.<br><span>Nobody used it.</span></h2>
+      <div class="subtitle">When I joined TBC Bank, the system had 41 components and ~15% adoption. Teams were faster building from scratch than waiting on platform approvals.</div>
+      <div class="cards cols3">
+        <div class="card">
+          <div class="card-label">Component library</div>
+          <div class="card-num">41</div>
+          <div class="card-sub">~15% adoption across products. Most teams built UI from scratch every sprint.</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Time-to-market</div>
+          <div class="card-num">74 days</div>
+          <div class="card-sub">Average time for new capabilities. Every review cycle added days of friction.</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Design cycle</div>
+          <div class="card-num">~14 days</div>
+          <div class="card-sub">Product teams bypassed platform entirely. Speed won over consistency.</div>
+        </div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Root cause</div>
+      <div class="insight-text">Teams weren't ignoring the system. The system wasn't worth using. No composite patterns, no contribution path, no adoption visibility — just a library of atomic parts nobody had time to assemble.</div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 02 — THE GAP ─────────────────────────────── -->
+  <div class="slide">
+    <div class="split">
+      <div class="split-text">
+        <div class="eyebrow"><span class="eyebrow-num">2</span>The gap</div>
+        <h2>Four structural<br>problems.</h2>
+        <div class="subtitle">The audit revealed it wasn't a component coverage problem. It was a system design problem.</div>
+      </div>
+      <div class="split-visual">
+        <div class="gap-list" style="margin-top:0;width:100%">
+          <div class="gap-item">
+            <div class="gap-n">01</div>
+            <div class="gap-content">
+              <div class="gap-title">Missing composites</div>
+              <div class="gap-body">Teams rebuilt list systems, forms, and cards from scratch. Patterns weren't codified anywhere.</div>
+            </div>
+          </div>
+          <div class="gap-item">
+            <div class="gap-n">02</div>
+            <div class="gap-content">
+              <div class="gap-title">No native-first principle</div>
+              <div class="gap-body">Custom UI replaced native iOS and Android components. Extra build cost, ongoing maintenance.</div>
+            </div>
+          </div>
+          <div class="gap-item">
+            <div class="gap-n">03</div>
+            <div class="gap-content">
+              <div class="gap-title">No contribution model</div>
+              <div class="gap-body">Platform was the only path. Every change needed approval. Review cycles took days or weeks.</div>
+            </div>
+          </div>
+          <div class="gap-item">
+            <div class="gap-n">04</div>
+            <div class="gap-content">
+              <div class="gap-title">No adoption tracking</div>
+              <div class="gap-body">Nobody knew what was being used, extended, or ignored. No visibility, no accountability.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 03 — THE SOLUTION ───────────────────────── -->
+  <div class="slide">
+    <div class="slide-body">
+      <div class="eyebrow"><span class="eyebrow-num">3</span>The solution</div>
+      <h2>Audit. Principle.<br><span>Composites. Governance.</span></h2>
+      <div class="subtitle">Four moves in sequence. Each one removed a blocker the previous one exposed.</div>
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-n">Phase 01</div>
+          <div class="phase-title">Full audit</div>
+          <div class="phase-body">Mapped every component across iOS and Android. Catalogued gaps, duplicates, deviation levels. Identified where native could replace custom.</div>
+        </div>
+        <div class="phase">
+          <div class="phase-n">Phase 02</div>
+          <div class="phase-title">Native-first principle</div>
+          <div class="phase-body">Use native platform components where possible. Customize only where it creates real product value. Teams identified swap candidates immediately.</div>
+        </div>
+        <div class="phase">
+          <div class="phase-n">Phase 03</div>
+          <div class="phase-title">Composite components</div>
+          <div class="phase-body">List system, form modules, cards, navigation patterns — fully assembled patterns, not raw atoms. Ready to configure and ship.</div>
+        </div>
+        <div class="phase">
+          <div class="phase-n">Phase 04</div>
+          <div class="phase-title">Contribution model</div>
+          <div class="phase-body">Reuse / extend / create tiers. No central gatekeeper. Teams contribute without waiting. Long review cycles — eliminated.</div>
+        </div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Key insight</div>
+      <div class="insight-text">Also replaced the custom print-optimized brand font with a system-optimized one — better readability across devices, lower rendering overhead, easier for engineering to implement consistently.</div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 04 — INTELLIGENCE ────────────────────────── -->
+  <div class="slide">
+    <div class="split">
+      <div class="split-text">
+        <div class="eyebrow"><span class="eyebrow-num">4</span>Intelligence</div>
+        <h2>Atoms weren't the<br><span>problem. Molecules were.</span></h2>
+        <div class="subtitle">Teams had parts. They kept spending time assembling them into the same patterns — every sprint, every team. Composite components ended that.</div>
+        <div style="margin-top:20px">
+          <table class="comp-table">
+            <tr>
+              <td><strong>List system</strong></td>
+              <td>Icons, metadata, swipe/tap actions, states. Eliminated rebuilds across transactions, beneficiaries, offers.</td>
+            </tr>
+            <tr>
+              <td><strong>Form modules</strong></td>
+              <td>Validation, errors, helper text, multi-step flows. Fixed inconsistency in onboarding, loans, payments.</td>
+            </tr>
+            <tr>
+              <td><strong>Card components</strong></td>
+              <td>Account cards, loan summaries, status indicators — content + actions + state in one unit.</td>
+            </tr>
+            <tr>
+              <td><strong>Navigation</strong></td>
+              <td>Headers, tab systems, contextual action bars — aligned across platforms.</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="split-visual dark">
+        <div style="color:rgba(255,255,255,.25);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">The shift</div>
+        <div style="font-size:15px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:24px">Before composites, teams assembled the same patterns from scratch — every sprint.</div>
+        <div style="width:100%;height:0.5px;background:rgba(255,255,255,.08);margin-bottom:24px"></div>
+        <div style="font-size:15px;color:#fff;line-height:1.6;margin-bottom:24px">After: pick a composite, configure it, ship. Composites drove ~60% of the efficiency gains.</div>
+        <div style="background:rgba(217,64,53,.12);border-radius:10px;padding:16px 18px;border:0.5px solid rgba(217,64,53,.2)">
+          <div style="font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);margin-bottom:8px">Result</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.55">Teams shifted from rebuilding UI to focusing on product logic and customer value.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 05 — CONTRIBUTION MODEL ─────────────────── -->
+  <div class="slide">
+    <div class="slide-body">
+      <div class="eyebrow"><span class="eyebrow-num">5</span>Contribution model</div>
+      <h2>Three tiers.<br><span>No bottlenecks.</span></h2>
+      <div class="subtitle">Defined when teams reuse, extend, or create. Removed the dependency on centralized approvals and eliminated long review cycles between product and platform teams.</div>
+      <div class="tiers">
+        <div class="tier">
+          <div class="tier-head reuse">Reuse</div>
+          <div class="tier-body">Component exists. Use it as-is. No review needed. Full velocity — the default path for the majority of work.</div>
+        </div>
+        <div class="tier">
+          <div class="tier-head extend">Extend</div>
+          <div class="tier-body">Component exists but needs variation. Extend with lightweight documentation. Light review. Pattern becomes available for others.</div>
+        </div>
+        <div class="tier">
+          <div class="tier-head create">Create</div>
+          <div class="tier-body">Pattern doesn't exist anywhere. Build it, document it, contribute it back. Becomes the new system standard.</div>
+        </div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Impact</div>
+      <div class="insight-text">Platform team freed from approval burden — shifted focus to system quality and coverage. Product teams gained autonomy without sacrificing consistency.</div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 06 — THE SIGNAL ──────────────────────────── -->
+  <div class="slide">
+    <div class="slide-body">
+      <div class="eyebrow"><span class="eyebrow-num">6</span>The signal</div>
+      <h2>End of 2025 results.</h2>
+      <div class="subtitle">Measured across component coverage, adoption rate, design cycle speed, and time-to-market.</div>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-before">41</div>
+          <div class="metric-after">~90</div>
+          <div class="metric-change">+119%</div>
+          <div class="metric-label">Components</div>
+        </div>
+        <div class="metric">
+          <div class="metric-before">~15%</div>
+          <div class="metric-after">~45%</div>
+          <div class="metric-change">+200%</div>
+          <div class="metric-label">Adoption</div>
+        </div>
+        <div class="metric">
+          <div class="metric-before">~14 days</div>
+          <div class="metric-after">~9 days</div>
+          <div class="metric-change">−35%</div>
+          <div class="metric-label">Design cycle</div>
+        </div>
+        <div class="metric">
+          <div class="metric-before">~74 days</div>
+          <div class="metric-after">~60 days</div>
+          <div class="metric-change">−19%</div>
+          <div class="metric-label">Time-to-market</div>
+        </div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">What moved</div>
+      <div class="insight-text">Redundant design and engineering work eliminated. Cross-team friction reduced. Product delivery became predictable and scalable. The system stopped being a passive library and became a delivery accelerator.</div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 07 — LESSONS ─────────────────────────────── -->
+  <div class="slide">
+    <div class="slide-body">
+      <div class="eyebrow"><span class="eyebrow-num">7</span>Lessons</div>
+      <h2>What I'd tell the<br><span>next DS lead.</span></h2>
+      <div class="lessons">
+        <div class="lesson">
+          <div class="lesson-n">01</div>
+          <div class="lesson-title">Atoms without molecules are a library, not a system.</div>
+          <div class="lesson-body">Composite components delivered more adoption than any foundation work. Teams need patterns, not parts.</div>
+        </div>
+        <div class="lesson">
+          <div class="lesson-n">02</div>
+          <div class="lesson-title">Gatekeeping kills adoption faster than missing components.</div>
+          <div class="lesson-body">Removing centralized approval was the unlock. Speed of contribution drives quality of coverage.</div>
+        </div>
+        <div class="lesson">
+          <div class="lesson-n">03</div>
+          <div class="lesson-title">Adoption only moves if it's tracked.</div>
+          <div class="lesson-body">Visibility created accountability. Once teams could see usage, the conversation shifted from "should we use it" to "how far are we behind."</div>
+        </div>
+        <div class="lesson">
+          <div class="lesson-n">04</div>
+          <div class="lesson-title">Native-first is a business argument, not a design preference.</div>
+          <div class="lesson-body">Custom components carry ongoing maintenance debt. Every native replacement freed engineering cycles for product work.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CLOSING ─────────────────────────────────────────── -->
+  <div class="slide">
+    <div class="closing">
+      <div class="closing-quote">The most important thing we did wasn't add more components. It was make the system <em>worth using</em> — and then make sure everyone knew how.</div>
+      <div class="closing-stats">
+        <div class="closing-stat">
+          <div class="closing-stat-val">~90 components</div>
+          <div class="closing-stat-label">Up from 41</div>
+        </div>
+        <div class="closing-stat">
+          <div class="closing-stat-val">45% adoption</div>
+          <div class="closing-stat-label">Up from 15%</div>
+        </div>
+        <div class="closing-stat">
+          <div class="closing-stat-val">−35% design cycle</div>
+          <div class="closing-stat-label">14 → 9 days</div>
+        </div>
+        <div class="closing-stat">
+          <div class="closing-stat-val">−19% TTM</div>
+          <div class="closing-stat-label">74 → 60 days</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
