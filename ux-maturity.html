@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UX Maturity — TBC Bank</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1A1917;
+    --ink-mid: #5A5855;
+    --ink-light: #9A9894;
+    --bg: #F5F3EE;
+    --bg-warm: #EDE9E1;
+    --bg-card: #FFFFFF;
+    --teal: #1D9E75;
+    --teal-light: #E1F5EE;
+    --teal-mid: #0F6E56;
+    --red: #C93535;
+    --red-light: #FCEBEB;
+    --amber: #BA7517;
+    --amber-light: #FAEEDA;
+    --blue: #185FA5;
+    --blue-light: #E6F1FB;
+    --navy: #26215C;
+    --border: rgba(26,25,23,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 20px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .page { margin: 0 auto; padding: 0 240px; overflow-x: hidden; box-sizing: border-box; }
+
+  /* ── NAV ── */
+  nav {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 240px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky; top: 0;
+    background: var(--bg);
+    z-index: 100;
+    backdrop-filter: blur(8px);
+  }
+  .nav-brand { font-size: 13px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-mid); }
+  .nav-badge { font-size: 11px; background: var(--teal-light); color: var(--teal-mid); padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 600;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .hero h1 em { font-style: italic; color: var(--teal); }
+  .hero-sub {
+    font-size: 17px; color: var(--ink-mid); max-width: 560px; line-height: 1.8;
+  }
+  .hero-meta {
+    display: flex; gap: 32px; margin-top: 40px; padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .hero-meta-item { }
+  .hero-meta-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-light); margin-bottom: 4px; }
+  .hero-meta-item .value { font-family: 'Lora', serif; font-size: 18px; font-weight: 600; }
+
+  /* ── SECTION ── */
+  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
+  .section-label {
+    font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-light); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 600; line-height: 1.25;
+    margin-bottom: 20px;
+  }
+  .section-body { font-size: 15px; color: var(--ink-mid); line-height: 1.85; max-width: 640px; }
+  .section-body p + p { margin-top: 14px; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-left: 3px solid var(--teal);
+    padding: 16px 20px;
+    background: var(--teal-light);
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+    font-size: 14px;
+    color: var(--teal-mid);
+    line-height: 1.7;
+  }
+
+  /* ── PERCEPTION BOX ── */
+  .perception-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .perception-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+  }
+  .perception-card.highlight {
+    border-color: var(--red);
+    background: var(--red-light);
+  }
+  .perception-card .card-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-light); margin-bottom: 8px; }
+  .perception-card .card-number {
+    font-family: 'Lora', serif;
+    font-size: 56px; font-weight: 600; line-height: 1; margin-bottom: 6px;
+  }
+  .perception-card.highlight .card-number { color: var(--red); }
+  .perception-card .card-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+  .perception-card.highlight .card-desc { color: var(--red); }
+  .level-name { font-weight: 500; }
+
+  /* ── MATURITY ARC ── */
+  .arc-wrap { margin: 40px 0 0; overflow: visible; }
+
+  /* ── TIMELINE ── */
+  .timeline { margin-top: 32px; display: flex; flex-direction: column; gap: 0; }
+  .tl-item { display: grid; grid-template-columns: 82px 28px 1fr; position: relative; }
+  .tl-time { font-size: 12px; color: var(--ink-light); padding-top: 4px; text-align: right; padding-right: 0; }
+  .tl-node { display: flex; flex-direction: column; align-items: center; padding-top: 4px; }
+  .tl-node::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+  .tl-node::after { content: ''; width: 1px; flex: 1; background: var(--border); margin-top: 5px; min-height: 32px; }
+  .tl-item:last-child .tl-node::after { display: none; }
+  .tl-node.pending::before { background: var(--ink-light); }
+  .tl-node.active::before { background: var(--teal); box-shadow: 0 0 0 3px var(--teal-light); }
+  .tl-body { padding-bottom: 40px; padding-left: 14px; }
+  .tl-title { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .tl-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* ── CATEGORIES GRID ── */
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 32px; }
+  .cat-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px;
+    border-left: 3px solid var(--border);
+    transition: border-color .15s;
+  }
+  .cat-card.live { border-left-color: var(--teal); }
+  .cat-card.next { border-left-color: var(--amber); }
+  .cat-card .cat-status {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .07em;
+    margin-bottom: 8px; padding: 2px 8px; border-radius: 20px;
+  }
+  .cat-card.live .cat-status { background: var(--teal-light); color: var(--teal-mid); }
+  .cat-card.next .cat-status { background: var(--amber-light); color: var(--amber); }
+  .cat-card.planned .cat-status { background: var(--bg-warm); color: var(--ink-light); }
+  .cat-card .cat-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .cat-card .cat-metrics { font-size: 12px; color: var(--ink-light); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .dot-teal { background: var(--teal); }
+  .dot-amber { background: var(--amber); }
+  .dot-gray { background: var(--ink-light); }
+
+  /* ── METRIC ITEMS ── */
+  .metric-item { position:relative; display:flex; align-items:center; gap:12px; font-size:18px; color:var(--ink-mid); cursor:help; padding:6px 4px; border-radius:6px; transition:background .1s, color .1s; }
+  .metric-item:hover { background:var(--bg-warm); color:var(--ink); }
+  .metric-item svg { width:18px; height:18px; flex-shrink:0; stroke:currentColor; }
+  .tip { visibility:hidden; opacity:0; position:absolute; bottom:calc(100% + 8px); top:auto; left:0; background:var(--ink); color:rgba(255,255,255,0.88); font-size:15px; line-height:1.65; padding:10px 13px; border-radius:8px; width:250px; z-index:500; transition:opacity .15s; pointer-events:none; box-shadow:0 4px 16px rgba(0,0,0,0.18); }
+  .tip::before { content:''; position:absolute; top:100%; left:14px; bottom:auto; border:5px solid transparent; border-top-color:var(--ink); border-bottom-color:transparent; }
+  .metric-item:hover .tip { visibility:visible; opacity:1; }
+
+  .band-tip::before { border-right-color: inherit; }
+  .band-tip {
+    visibility: hidden; opacity: 0;
+    position: absolute; top: 50%; transform: translateY(-50%);
+    left: calc(100% + 10px);
+    color: #fff; font-size: 11px; line-height: 1.6;
+    padding: 9px 13px; border-radius: 8px;
+    width: 220px; z-index: 500;
+    transition: opacity .15s; pointer-events: none;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  }
+  .band-tip::before {
+    content: ''; position: absolute;
+    right: 100%; top: 50%; transform: translateY(-50%);
+    border: 5px solid transparent;
+  }
+  .band-row:hover .band-tip { visibility: visible; opacity: 1; }
+
+  /* ── CATEGORY CARDS ── */
+  .score-strip {
+    background: var(--ink);
+    border-radius: 16px;
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 32px;
+    align-items: center;
+    margin-top: 40px;
+    color: #fff;
+  }
+  .score-strip .big-score { font-family: 'Lora', serif; font-size: 64px; font-weight: 600; line-height: 1; color: var(--teal); }
+  .score-strip .score-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,0.4); margin-bottom: 6px; }
+  .score-strip .score-desc { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; }
+  .score-strip .score-band { text-align: right; }
+  .score-strip .band-label { font-size: 18px; font-weight: 500; }
+  .score-strip .band-range { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+  /* ── CAVEAT ── */
+  .caveat-box {
+    background: var(--amber-light);
+    border: 1px solid rgba(186,117,23,0.2);
+    border-radius: 10px; padding: 20px 24px;
+    margin-top: 24px;
+    font-size: 13px; color: #7A4E0A; line-height: 1.75;
+  }
+  .caveat-box strong { font-weight: 500; }
+
+  /* ── WHAT'S NEXT ── */
+  .next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 28px; }
+  .next-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px;
+  }
+  .next-card .next-icon { display:flex; align-items:center; margin-bottom: 12px; color: var(--ink-mid); }
+  .next-card h4 { font-size: 15px; font-weight: 500; margin-bottom: 6px; }
+  .next-card p { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+  .next-card.priority { border-color: var(--amber); background: var(--amber-light); }
+  .next-card.priority h4 { color: var(--amber); }
+  .next-card.priority p { color: #7A4E0A; }
+
+  /* ── CLOSING QUOTE ── */
+  .closing {
+    padding: 64px 0 80px;
+    text-align: center;
+  }
+  .closing blockquote {
+    font-family: 'Lora', serif;
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink-mid);
+    max-width: 600px;
+    margin: 0 auto 20px;
+  }
+  .closing cite { font-size: 13px; color: var(--ink-light); font-style: normal; }
+
+  /* ── FADE IN ── */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+  .fade-in.visible { opacity: 1; transform: none; }
+
+  /* ── DATA POINTS BADGE ── */
+  .dp-badge {
+    display: inline-flex; align-items: baseline; gap: 6px;
+    background: var(--ink); color: #fff;
+    padding: 6px 16px; border-radius: 30px;
+    font-size: 14px; margin: 20px 0;
+  }
+  .dp-badge strong { font-family: 'Lora', serif; font-size: 22px; font-weight: 600; }
+
+  @media (max-width: 600px) {
+    .perception-grid { grid-template-columns: 1fr; }
+    .score-strip { grid-template-columns: 1fr; text-align: center; }
+    .score-strip .score-band { text-align: center; }
+    .next-grid { grid-template-columns: 1fr; }
+    .page { padding: 0 20px; }
+    nav { padding: 16px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">TBC Bank · Design</span>
+  <span class="nav-badge">UX Maturity Program</span>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero fade-in">
+    <p class="hero-label">Experience Design · 2025–2026</p>
+    <h1>Understanding where we <em>actually</em> stand in User Experience</h1>
+    <p class="hero-sub">A systematic approach to measuring, scoring, and improving how TBC Bank designs and delivers customer experience — across 7 dimensions that matter.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="label">Started</div>
+        <div class="value">Late 2025</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Data points defined</div>
+        <div class="value">25+</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Categories</div>
+        <div class="value">7</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="label">Live today</div>
+        <div class="value" style="color:var(--teal)">2 of 7</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT STARTED -->
+  <section class="fade-in">
+    <p class="section-label">Chapter 1</p>
+    <h2 class="section-title">The question that started it all</h2>
+    <div class="section-body">
+      <p>In late 2025, the design organization at TBC Bank started a conversation that most banks never have: <em>where do we actually stand in User Experience?</em> Not by instinct, not by perception — but by evidence.</p>
+      <p>We ran an initial survey across the organization to capture the team's perception of our maturity level across key experience dimensions. The framework we used was grounded in the Nielsen Norman Group's 6-stage UX maturity model — a globally recognized scale from <strong>Absent</strong> to <strong>User-driven</strong>.</p>
+    </div>
+
+    <!-- NN/g scale -->
+    <div style="margin-top:32px;margin-bottom:36px;">
+      <p style="font-size:15px;color:var(--ink-light);margin:0 0 20px;">Nielsen Norman Group's 6-stage UX maturity model</p>
+      <div style="position:relative;overflow:visible;">
+        <svg width="100%" viewBox="0 0 780 130" role="img" aria-label="NN/g 6-stage UX maturity model from Absent to User-driven">
+          <defs>
+            <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="#ccc"/>
+            </marker>
+          </defs>
+
+          <line x1="30" y1="36" x2="755" y2="36" stroke="#ddd" stroke-width="1.5" marker-end="url(#arr)"/>
+
+          <!-- Stage 1 -->
+          <g transform="translate(70,36)">
+            <circle r="26" fill="#C93535"/>
+            <text fill="white" x="0" y="0" text-anchor="middle" dominant-baseline="central" style="font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;">1</text>
+            <text x="0" y="44" text-anchor="middle" style="font-size:13px;font-weight:600;fill:#C93535;font-family:'DM Sans',sans-serif;">Absent</text>
+            <text x="0" y="60" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Ignored</text>
+            <text x="0" y="74" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Nonexistent</text>
+          </g>
+
+          <!-- Stage 2 -->
+          <g transform="translate(195,36)">
+            <circle r="26" fill="#D85A30"/>
+            <text fill="white" x="0" y="0" text-anchor="middle" dominant-baseline="central" style="font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;">2</text>
+            <text x="0" y="44" text-anchor="middle" style="font-size:13px;font-weight:600;fill:#D85A30;font-family:'DM Sans',sans-serif;">Limited</text>
+            <text x="0" y="60" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Uneven</text>
+            <text x="0" y="74" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Haphazard</text>
+          </g>
+
+          <!-- Stage 3 -->
+          <g transform="translate(320,36)">
+            <circle r="26" fill="#9A6B00"/>
+            <text fill="white" x="0" y="0" text-anchor="middle" dominant-baseline="central" style="font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;">3</text>
+            <text x="0" y="44" text-anchor="middle" style="font-size:13px;font-weight:600;fill:#9A6B00;font-family:'DM Sans',sans-serif;">Emergent</text>
+            <text x="0" y="60" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Inconsistent</text>
+            <text x="0" y="74" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Inefficient</text>
+          </g>
+
+          <!-- Stage 4 — perceived -->
+          <g transform="translate(445,36)">
+            <circle r="32" fill="none" stroke="#C93535" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+            <circle r="26" fill="#BA7517"/>
+            <text fill="white" x="0" y="0" text-anchor="middle" dominant-baseline="central" style="font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;">4</text>
+            <text x="0" y="48" text-anchor="middle" style="font-size:13px;font-weight:600;fill:#BA7517;font-family:'DM Sans',sans-serif;">Structured</text>
+            <text x="0" y="64" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Systematic</text>
+            <text x="0" y="-42" text-anchor="middle" style="font-size:11px;fill:#C93535;font-family:'DM Sans',sans-serif;">← we perceived ourselves here</text>
+          </g>
+
+          <!-- Stage 5 -->
+          <g transform="translate(570,36)">
+            <circle r="26" fill="#185FA5"/>
+            <text fill="white" x="0" y="0" text-anchor="middle" dominant-baseline="central" style="font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;">5</text>
+            <text x="0" y="44" text-anchor="middle" style="font-size:13px;font-weight:600;fill:#185FA5;font-family:'DM Sans',sans-serif;">Integrated</text>
+            <text x="0" y="60" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Pervasive</text>
+            <text x="0" y="74" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Universal</text>
+          </g>
+
+          <!-- Stage 6 -->
+          <g transform="translate(695,36)">
+            <circle r="26" fill="#26215C"/>
+            <text fill="white" x="0" y="0" text-anchor="middle" dominant-baseline="central" style="font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;">6</text>
+            <text x="0" y="44" text-anchor="middle" style="font-size:13px;font-weight:600;fill:#26215C;font-family:'DM Sans',sans-serif;">User-driven</text>
+            <text x="0" y="60" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Beloved</text>
+            <text x="0" y="74" text-anchor="middle" style="font-size:11px;fill:#9A9894;font-family:'DM Sans',sans-serif;">Habitual</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="perception-grid">
+      <div class="perception-card highlight">
+        <div class="card-label">Survey result — perceived level</div>
+        <div class="card-number">4</div>
+        <div class="card-desc"><span class="level-name">Structured</span> — partly systematic, variably effective. The team believed we had process, but inconsistently applied.</div>
+      </div>
+      <div class="perception-card">
+        <div class="card-label">What level 4 means</div>
+        <div class="card-number" style="font-size:34px;margin-top:8px;color:var(--amber)">Structured</div>
+        <div class="card-desc" style="margin-top:8px;">UX is partly systematic. Some evidence-driven decisions. Process exists but is not universal — effectiveness varies by team and product area.</div>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:24px;">
+      Perception is a starting point, not a measurement. A score of 4 felt right in the room — but feeling right and being right are different things. That gap is exactly what this project was built to close.
+    </div>
+  </section>
+
+  <!-- THE MATURITY SCALE -->
+  <section class="fade-in">
+    <p class="section-label">The framework</p>
+    <h2 class="section-title">Six stages. One direction.</h2>
+    <div class="section-body">
+      <p>The maturity scale runs from 1 to 6. Each stage describes how embedded, systematic, and business-connected UX is within the organization. The goal is not to reach 6 overnight — it's to know exactly where you are and move deliberately.</p>
+    </div>
+
+    <!-- Interactive radar -->
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-top:36px;max-width:100%;box-sizing:border-box;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;min-width:0;">
+
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+            <p style="font-size:15px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);margin:0;">Score each category (1 – 6)</p>
+            <p style="font-size:16px;color:var(--ink-light);margin:0;">Toggle to include in score</p>
+          </div>
+
+          <div id="cat-rows"></div>
+
+          <div style="border-top:1px solid var(--border);margin-top:14px;padding-top:14px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <p style="font-size:15px;color:var(--ink-light);margin:0 0 2px;">Overall score <span id="active-count" style="font-size:16px;">(2 categories)</span></p>
+              <p style="font-family:'Lora',serif;font-size:34px;font-weight:600;margin:0;line-height:1;" id="r-avg">1.0 <span style="font-size:18px;color:var(--ink-light);font-weight:400;">/ 6</span></p>
+            </div>
+            <div style="text-align:right;">
+              <p style="font-size:15px;color:var(--ink-light);margin:0 0 5px;">Maturity level</p>
+              <span id="r-band" style="display:inline-block;padding:3px 12px;border-radius:20px;font-size:15px;font-weight:500;background:#FCEBEB;color:#A32D2D;">Absent</span>
+            </div>
+          </div>
+          <div style="margin-top:12px;border:0.5px solid var(--border);border-radius:10px;overflow:visible;width:100%;">
+            <div class="band-row" style="display:grid;grid-template-columns:1fr 120px;font-size:15px;position:relative;border-radius:10px 10px 0 0;overflow:visible;">
+              <div style="padding:9px 14px;font-weight:500;color:#0F6E56;background:#E1F5EE;border-bottom:0.5px solid var(--border);border-radius:10px 0 0 0;">User-driven</div>
+              <div style="padding:9px 14px;color:var(--ink-light);background:#E1F5EE;border-bottom:0.5px solid var(--border);border-left:0.5px solid var(--border);border-radius:0 10px 0 0;white-space:nowrap;">5.5 – 6</div>
+              <span class="band-tip" style="background:#0F6E56;--arrow:#0F6E56;">UX is a strategic driver. Outcomes are reproducible and habitual across the org.</span>
+            </div>
+            <div class="band-row" style="display:grid;grid-template-columns:1fr 120px;font-size:15px;position:relative;overflow:visible;">
+              <div style="padding:9px 14px;font-weight:500;color:#185FA5;background:#E6F1FB;border-bottom:0.5px solid var(--border);">Integrated</div>
+              <div style="padding:9px 14px;color:var(--ink-light);background:#E6F1FB;border-bottom:0.5px solid var(--border);border-left:0.5px solid var(--border);white-space:nowrap;">4.5 – 5.4</div>
+              <span class="band-tip" style="background:#185FA5;">UX is embedded across teams. Comprehensive and pervasive but not yet universal.</span>
+            </div>
+            <div class="band-row" style="display:grid;grid-template-columns:1fr 120px;font-size:15px;position:relative;overflow:visible;">
+              <div style="padding:9px 14px;font-weight:500;color:#854F0B;background:#FAEEDA;border-bottom:0.5px solid var(--border);">Structured</div>
+              <div style="padding:9px 14px;color:var(--ink-light);background:#FAEEDA;border-bottom:0.5px solid var(--border);border-left:0.5px solid var(--border);white-space:nowrap;">3.5 – 4.4</div>
+              <span class="band-tip" style="background:#854F0B;">Process exists and is partly systematic. Variably effective — works in some teams, not others.</span>
+            </div>
+            <div class="band-row" style="display:grid;grid-template-columns:1fr 120px;font-size:15px;position:relative;overflow:visible;">
+              <div style="padding:9px 14px;font-weight:500;color:#9A6B00;background:#FDF8EE;border-bottom:0.5px solid var(--border);">Emergent</div>
+              <div style="padding:9px 14px;color:var(--ink-light);background:#FDF8EE;border-bottom:0.5px solid var(--border);border-left:0.5px solid var(--border);white-space:nowrap;">2.5 – 3.4</div>
+              <span class="band-tip" style="background:#9A6B00;">Promising signs but inconsistent. Functional in pockets, inefficient at scale.</span>
+            </div>
+            <div class="band-row" style="display:grid;grid-template-columns:1fr 120px;font-size:15px;position:relative;border-radius:0 0 10px 10px;overflow:visible;">
+              <div style="padding:9px 14px;font-weight:500;color:#A32D2D;background:#FCEBEB;border-radius:0 0 0 10px;">Limited / Absent</div>
+              <div style="padding:9px 14px;color:var(--ink-light);background:#FCEBEB;border-left:0.5px solid var(--border);border-radius:0 0 10px 0;white-space:nowrap;">1 – 2.4</div>
+              <span class="band-tip" style="background:#A32D2D;">Ad-hoc, reactive, siloed. UX has no consistent process or organizational support.</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:relative;height:320px;min-width:0;overflow:hidden;">
+          <canvas id="rdrChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script>
+    const CATS = [
+      { label: 'Product experience quality',    active: true  },
+      { label: 'Research & validation',         active: false },
+      { label: 'Collaboration & culture',       active: false },
+      { label: 'Operational efficiency',        active: true  },
+      { label: 'Design system & asset quality', active: false },
+      { label: 'Business impact',               active: false },
+      { label: 'Accessibility beyond compliance', active: false }
+    ];
+    const scores = [3.84, 1.0, 1.0, 4.7, 1.0, 1.0, 1.0];
+
+    function buildRows() {
+      const wrap = document.getElementById('cat-rows');
+      wrap.innerHTML = CATS.map((c, i) => `
+        <div id="row-${i}" style="display:flex;align-items:center;gap:8px;margin-bottom:8px;transition:opacity .2s;${!c.active ? 'opacity:0.38;' : ''}">
+          <button onclick="toggleCat(${i})" title="${c.active ? 'Disable' : 'Enable'} category"
+            style="width:32px;height:18px;border-radius:9px;border:none;cursor:pointer;flex-shrink:0;position:relative;transition:background .2s;background:${c.active ? 'var(--teal)' : '#ccc'};">
+            <span style="position:absolute;top:2px;left:${c.active ? '16px' : '2px'};width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s;"></span>
+          </button>
+          <span style="font-size:16px;color:var(--ink-mid);width:195px;flex-shrink:0;">${c.label}</span>
+      <input type="range" min="1" max="6" step="0.1" value="${scores[i]}" id="r${i+1}"
+            oninput="scores[${i}]=parseFloat(this.value);rUpd()"
+            style="flex:1;accent-color:var(--teal);${!c.active ? 'pointer-events:none;' : ''}">
+          <span style="font-size:16px;font-weight:500;width:28px;text-align:right;color:${c.active ? 'var(--ink)' : 'var(--ink-light)'};" id="rv${i+1}">${scores[i].toFixed(1)}</span>
+        </div>`).join('');
+    }
+
+    function toggleCat(i) {
+      CATS[i].active = !CATS[i].active;
+      buildRows();
+      rUpd();
+    }
+
+    const rdrChart = new Chart(document.getElementById('rdrChart'), {
+      type: 'radar',
+      data: {
+        labels: ['Product exp.\nquality','Research &\nvalidation','Collaboration\n& culture','Operational\nefficiency','Design system\n& assets','Business\nimpact','Accessibility\nbeyond compliance'],
+        datasets: [
+          { label:'Target', data:[6,6,6,6,6,6,6], borderColor:'rgba(0,0,0,0.08)', backgroundColor:'transparent', borderWidth:1, borderDash:[4,3], pointRadius:0 },
+          { label:'Current', data:[1,1,1,1,1,1,1], borderColor:'#1D9E75', backgroundColor:'rgba(29,158,117,0.12)', borderWidth:2, pointBackgroundColor: scores.map((_,i)=> CATS[i].active ? '#1D9E75' : 'rgba(0,0,0,0)'), pointBorderColor:'#fff', pointBorderWidth:1.5, pointRadius:4 }
+        ]
+      },
+      options: {
+        responsive:true, maintainAspectRatio:false, animation:{duration:150},
+        plugins:{ legend:{display:false}, tooltip:{callbacks:{label: ctx => {
+          const i = ctx.dataIndex;
+          return CATS[i].active ? ` ${parseFloat(ctx.raw).toFixed(1)} / 6` : ' not included in score';
+        }}}},
+        scales:{ r:{ min:0, max:6, ticks:{display:false}, grid:{color:'rgba(0,0,0,0.07)'}, angleLines:{color:'rgba(0,0,0,0.07)'}, pointLabels:{color:'#888780',font:{size:10,family:"'DM Sans',sans-serif"}} } }
+      }
+    });
+
+    function rBand(avg) {
+      if (avg >= 5.5) return { label:'User-driven', bg:'#E1F5EE', color:'#0F6E56' };
+      if (avg >= 4.5) return { label:'Integrated',  bg:'#E6F1FB', color:'#185FA5' };
+      if (avg >= 3.5) return { label:'Structured',  bg:'#FAEEDA', color:'#854F0B' };
+      if (avg >= 2.5) return { label:'Emergent',    bg:'#F5F3EE', color:'#9A6B00' };
+      if (avg >= 1.5) return { label:'Limited',     bg:'#FCEBEB', color:'#D85A30' };
+      return               { label:'Absent',        bg:'#FCEBEB', color:'#A32D2D' };
+    }
+
+    function rUpd() {
+      const active = CATS.map((c,i) => c.active ? scores[i] : null).filter(v => v !== null);
+      const radarData = CATS.map((c,i) => c.active ? scores[i] : 0);
+      const pointColors = CATS.map((c,i) => c.active ? '#1D9E75' : 'rgba(0,0,0,0)');
+      const pointBorders = CATS.map((c,i) => c.active ? '#fff' : 'rgba(0,0,0,0)');
+
+      [1,2,3,4,5,6,7].forEach(i => {
+        document.getElementById('rv'+i).textContent = scores[i-1].toFixed(1);
+      });
+
+      const n = active.length;
+      const avg = n > 0 ? active.reduce((a,b)=>a+b,0) / n : 0;
+      document.getElementById('r-avg').innerHTML = (n > 0 ? avg.toFixed(1) : '—') + ' <span style="font-size:18px;color:var(--ink-light);font-weight:400;">/ 6</span>';
+      document.getElementById('active-count').textContent = `(${n} categor${n===1?'y':'ies'})`;
+
+      const b = n > 0 ? rBand(avg) : { label:'—', bg:'#F5F3EE', color:'#888' };
+      const pill = document.getElementById('r-band');
+      pill.textContent = b.label; pill.style.background = b.bg; pill.style.color = b.color;
+
+      rdrChart.data.datasets[1].data = radarData;
+      rdrChart.data.datasets[1].pointBackgroundColor = pointColors;
+      rdrChart.data.datasets[1].pointBorderColor = pointBorders;
+      rdrChart.update('none');
+    }
+
+    buildRows();
+    rUpd();
+  </script>
+
+  <!-- THE PROJECT -->
+  <section class="fade-in">
+    <p class="section-label">Chapter 2</p>
+    <h2 class="section-title">Building the measurement system</h2>
+    <div class="section-body">
+      <p>Perception is a starting point. We needed data. So we kicked off a structured project to define what "measurable UX maturity" actually looks like at TBC Bank.</p>
+      <p>The work resulted in a set of concrete, trackable data points organized across 7 business-relevant dimensions — from customer experience quality to accessibility. Each dimension scores 1–6. Together they produce a single, honest maturity score.</p>
+    </div>
+
+    <div class="dp-badge"><strong>25+</strong> metrics defined across 7 categories</div>
+
+    <div id="cat-grid-root" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px;margin-top:32px;"></div>
+
+    <script>
+    (function() {
+      const IC = {
+        target:       '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+        clock:        '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+        thumbsup:     '<path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>',
+        gauge:        '<path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l4-4"/>',
+        smile:        '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/>',
+        zap:          '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+        calendar:     '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+        wrench:       '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+        refresh:      '<polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>',
+        layers:       '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
+        users:        '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+        gitbranch:    '<line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>',
+        flask:        '<path d="M6 2h12v6l4 10H2L6 8V2z"/><line x1="6" y1="2" x2="18" y2="2"/>',
+        checksq:      '<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+        bulb:         '<line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/>',
+        trending:     '<polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>',
+        usercheck:    '<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/>',
+        shield:       '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+        listcheck:    '<line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><polyline points="3 6 4 7 6 5"/><polyline points="3 12 4 13 6 11"/><polyline points="3 18 4 19 6 17"/>',
+        eye:          '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>',
+        message:      '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+        grid:         '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',
+        tag:          '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
+        access:       '<circle cx="12" cy="4" r="2"/><path d="M9 10h6"/><path d="M12 10v7"/><path d="M9 17l3 3 3-3"/>',
+        contrast:     '<circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z"/>',
+        image:        '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',
+        scale:        '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+      };
+
+      function icon(name) {
+        return `<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${IC[name]||''}</svg>`;
+      }
+
+      const CATS = [
+        {
+          name: 'Product experience quality', status: 'live', badge: 'Implementation completed in Q1 2026',
+          metrics: [
+            { ic:'target',   label:'Task success rate',       tip:'How often customers complete what they came to do without giving up or failing. Higher means fewer frustrating dead ends.' },
+            { ic:'clock',    label:'Time-on-task efficiency', tip:'How long it takes to complete common actions. Shorter is better — nobody wants to spend 3 minutes finding their balance.' },
+            { ic:'thumbsup', label:'NPS',                     tip:'Would customers recommend TBC to a friend? Scores run from -100 to +100. Anything above 0 is positive, above 50 is excellent.' },
+            { ic:'gauge',    label:'Customer effort score',   tip:'How hard did the customer have to work to get something done? Lower effort equals higher loyalty.' },
+            { ic:'smile',    label:'CSAT',                    tip:'A simple satisfaction rating after an interaction — did this experience meet expectations?' },
+          ]
+        },
+        {
+          name: 'Operational efficiency', status: 'live', badge: 'Implementation completed in Q1 2026',
+          metrics: [
+            { ic:'zap',     label:'Design-to-dev cycle time',    tip:'How long from a finalized design to working code in production. Shorter cycles mean faster delivery to customers.' },
+            { ic:'calendar',label:'Design lead time',            tip:'How long it takes the design team to go from brief to ready-to-build. Measures design team throughput.' },
+            { ic:'wrench',  label:'UX defect resolution time',   tip:'How quickly UX-related bugs and experience problems get fixed after they are reported.' },
+            { ic:'refresh', label:'Rework rate',                 tip:'How often designs have to be significantly revised after handoff. High rework signals misalignment earlier in the process.' },
+          ]
+        },
+        {
+          name: 'Research & validation', status: 'next', badge: 'Planned to be completed end of Q2 2026',
+          metrics: [
+            { ic:'users',   label:'Research participation rate',  tip:'How many product teams actively engage with UX research. Low participation means decisions made without user input.' },
+            { ic:'flask',   label:'Prototype validation rate',    tip:'Of the prototypes we test, how many pass validation and move forward confidently.' },
+            { ic:'checksq', label:'Post-release validation rate', tip:'How often we go back after launch to check if the feature actually worked for real users in real life.' },
+            { ic:'bulb',    label:'Insights adoption rate',       tip:'How many research findings actually get acted on by product and design. High adoption means research drives decisions.' },
+          ]
+        },
+        {
+          name: 'Business impact', status: 'planned', badge: null,
+          metrics: [
+            { ic:'trending',  label:'Conversion rate lift',          tip:'Did UX improvements increase the percentage of users completing key actions — like opening an account or making a transfer?' },
+            { ic:'usercheck', label:'Active user retention change',  tip:'Are users coming back? Tracks whether experience improvements keep customers engaged month over month.' },
+            { ic:'shield',    label:'Support contact deflection',    tip:'How much did better UX reduce calls to customer support? Every deflected contact saves cost and signals clearer design.' },
+          ]
+        },
+        {
+          name: 'Collaboration & culture', status: 'next', badge: 'Planned to be completed end of Q2 2026',
+          metrics: [
+            { ic:'listcheck', label:'UX involvement in backlog grooming', tip:'Are designers at the table when product decides what to build next? Measures design\'s seat at the decision-making table.' },
+            { ic:'eye',       label:'Design review attendance',          tip:'Do stakeholders and engineers show up to design reviews? Attendance signals investment in quality.' },
+            { ic:'message',   label:'Feedback incorporation rate',       tip:'How much of the feedback given during design reviews actually makes it into the final product.' },
+          ]
+        },
+        {
+          name: 'Design system & asset quality', status: 'planned', badge: null,
+          metrics: [
+            { ic:'grid',   label:'Component coverage',                 tip:'What percentage of our live product uses shared design system components. Higher means more consistent and faster to build.' },
+            { ic:'tag',    label:'Token adoption rate',                tip:'How widely design tokens — colors, spacing, typography — are used across products instead of hardcoded one-offs.' },
+            { ic:'layers', label:'Cross-channel consistency deviations', tip:'How different does the same feature look or behave across mobile, web, and other surfaces. Fewer deviations means a more unified experience.' },
+          ]
+        },
+        {
+          name: 'Accessibility beyond compliance', status: 'planned', badge: null,
+          metrics: [
+            { ic:'access',   label:'Assistive tech testing coverage', tip:'What share of our product has been tested with screen readers and assistive technology. Not just compliance — real usability for everyone.' },
+            { ic:'contrast', label:'Color contrast compliance',       tip:'Do text and UI elements meet contrast ratios for users with low vision? WCAG AA is the minimum bar we hold ourselves to.' },
+            { ic:'image',    label:'Alt text coverage',               tip:'What percentage of images in our product have meaningful descriptions for screen reader users.' },
+          ]
+        },
+      ];
+
+      const statusCfg = {
+        live:    { cls:'live',    dot:'#1D9E75', label:'Live',    badgeBg:'#E1F5EE', badgeColor:'#0F6E56' },
+        next:    { cls:'next',    dot:'#BA7517', label:'Next',    badgeBg:'#FAEEDA', badgeColor:'#854F0B' },
+        planned: { cls:'planned', dot:'#9A9894', label:'Planned', badgeBg:null,       badgeColor:null },
+      };
+
+      const metricDotColor = { live:'#1D9E75', next:'#BA7517', planned:'#9A9894' };
+
+      const root = document.getElementById('cat-grid-root');
+      root.innerHTML = CATS.map(cat => {
+        const s = statusCfg[cat.status];
+        const mc = metricDotColor[cat.status];
+        const badgeHtml = cat.badge
+          ? `<span style="font-size:16px;color:${s.badgeColor};background:${s.badgeBg};padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;">${cat.badge}</span>`
+          : '';
+        const metricsHtml = cat.metrics.map(m =>
+          `<div class="metric-item">
+            <span style="color:${mc};display:flex;align-items:center;">${icon(m.ic)}</span>
+            <span>${m.label}</span>
+            <span class="tip">${m.tip}</span>
+          </div>`
+        ).join('');
+        return `
+          <div class="cat-card ${s.cls}">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
+              <div class="cat-status"><span style="width:6px;height:6px;border-radius:50%;background:${s.dot};display:inline-block;margin-right:4px;"></span>${s.label}</div>
+              ${badgeHtml}
+            </div>
+            <div class="cat-name">${cat.name}</div>
+            <div style="margin-top:12px;display:flex;flex-direction:column;gap:4;">${metricsHtml}</div>
+          </div>`;
+      }).join('');
+    })();
+    </script>
+  </section>
+
+  <!-- WHERE WE ARE TODAY -->
+  <section class="fade-in">
+    <p class="section-label">Chapter 3 — Today</p>
+    <h2 class="section-title">First data. First glimpse.</h2>
+    <div class="section-body">
+      <p>Two of the seven categories are now instrumented and producing real data — Product Experience Quality and Operational Efficiency. This is the first time TBC Bank has had a structured, evidence-based view of its UX performance.</p>
+      <p>The score below reflects what we can measure today. It is an early signal, not a final verdict.</p>
+    </div>
+
+    <div style="background:var(--ink);border-radius:16px;padding:32px 36px;margin-top:40px;color:#fff;box-sizing:border-box;max-width:100%;overflow:hidden;">
+
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center;margin-bottom:32px;">
+        <div>
+          <div style="font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.35);margin-bottom:8px;">Overall maturity score</div>
+          <div style="font-family:'Lora',serif;font-size:74px;font-weight:600;line-height:1;color:var(--teal);">4.27</div>
+          <div style="font-size:16px;color:rgba(255,255,255,0.3);margin-top:6px;">avg. of 2 live categories</div>
+        </div>
+        <div>
+          <div style="font-size:18px;color:rgba(255,255,255,0.65);line-height:1.8;margin-bottom:16px;">The overall score is the <strong style="color:#fff;">average</strong> across all 7 categories — a single number between 1 and 6 that places TBC Bank on the maturity arc. A score of <strong style="color:#fff;">4.3</strong> means we sit between Structured and Integrated. A <strong style="color:#fff;">5.2</strong> means we're approaching User-driven.</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div style="flex:1;height:4px;border-radius:2px;background:linear-gradient(to right,#C93535,#D85A30,#9A6B00,#BA7517,#185FA5,#26215C);"></div>
+            <div style="display:flex;justify-content:space-between;width:100%;position:absolute;display:none;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;">
+            <span style="font-size:16px;color:rgba(255,255,255,0.3);">1 · Absent</span>
+            <span style="font-size:16px;color:rgba(255,255,255,0.3);">3 · Emergent</span>
+            <span style="font-size:16px;color:rgba(255,255,255,0.3);">6 · User-driven</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(7,minmax(80px,1fr));gap:8px;overflow-x:auto;">
+        <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:14px 8px;text-align:center;border:1px solid var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;">
+          <div style="font-size:15px;color:rgba(255,255,255,0.4);line-height:1.4;">Product exp. quality</div>
+          <div style="font-family:'Lora',serif;font-size:26px;font-weight:600;color:var(--teal);">3.84</div>
+          <div style="font-size:15px;color:var(--teal);font-weight:500;">● Live</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:14px 8px;text-align:center;border:1px solid var(--teal);display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;">
+          <div style="font-size:15px;color:rgba(255,255,255,0.4);line-height:1.4;">Operational efficiency</div>
+          <div style="font-family:'Lora',serif;font-size:26px;font-weight:600;color:var(--teal);">4.7</div>
+          <div style="font-size:15px;color:var(--teal);font-weight:500;">● Live</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px 8px;text-align:center;border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;">
+          <div style="font-size:15px;color:rgba(255,255,255,0.25);line-height:1.4;">Research & validation</div>
+          <div style="font-family:'Lora',serif;font-size:26px;font-weight:600;color:rgba(255,255,255,0.2);">N/A</div>
+          <div style="font-size:15px;color:rgba(186,117,23,0.8);font-weight:500;">Next</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px 8px;text-align:center;border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;">
+          <div style="font-size:15px;color:rgba(255,255,255,0.25);line-height:1.4;">Business impact</div>
+          <div style="font-family:'Lora',serif;font-size:26px;font-weight:600;color:rgba(255,255,255,0.2);">N/A</div>
+          <div style="font-size:15px;color:rgba(255,255,255,0.2);">Planned</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px 8px;text-align:center;border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;">
+          <div style="font-size:15px;color:rgba(255,255,255,0.25);line-height:1.4;">Collaboration & culture</div>
+          <div style="font-family:'Lora',serif;font-size:26px;font-weight:600;color:rgba(255,255,255,0.2);">N/A</div>
+          <div style="font-size:15px;color:rgba(186,117,23,0.8);font-weight:500;">Next</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px 8px;text-align:center;border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;">
+          <div style="font-size:15px;color:rgba(255,255,255,0.25);line-height:1.4;">Design system & assets</div>
+          <div style="font-family:'Lora',serif;font-size:26px;font-weight:600;color:rgba(255,255,255,0.2);">N/A</div>
+          <div style="font-size:15px;color:rgba(255,255,255,0.2);">Planned</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border-radius:8px;padding:14px 8px;text-align:center;border:1px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:110px;">
+          <div style="font-size:15px;color:rgba(255,255,255,0.25);line-height:1.4;">Accessibility</div>
+          <div style="font-family:'Lora',serif;font-size:26px;font-weight:600;color:rgba(255,255,255,0.2);">N/A</div>
+          <div style="font-size:15px;color:rgba(255,255,255,0.2);">Planned</div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.07);font-size:16px;color:rgba(255,255,255,0.3);">
+        Each category scores 1–6. Overall score = average of all live categories. Grows more precise as more categories come online.
+      </div>
+    </div>
+
+    <div style="margin-top:28px;">
+      <p style="font-size:15px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);margin:0 0 12px;">Product flows covered today</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">Loyalty</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">Foreign Exchange</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">Transfers</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">Bill & Utility Payments</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">BNPL & Installment</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">Debit Cards</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">Retail Digital Banking</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">FCL</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">Investments</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">Credit Cards & Overdrafts</span>
+        <span style="font-size:16px;font-weight:500;padding:5px 12px;border-radius:20px;background:var(--teal-light);color:var(--teal-mid);border:0.5px solid rgba(29,158,117,0.2);">Deposits</span>
+        <span style="font-size:16px;padding:5px 12px;border-radius:20px;background:var(--bg-warm);color:var(--ink-light);border:0.5px solid var(--border);">Business Digital Banking</span>
+        <span style="font-size:16px;padding:5px 12px;border-radius:20px;background:var(--bg-warm);color:var(--ink-light);border:0.5px solid var(--border);">Micro Business Loans</span>
+        <span style="font-size:16px;padding:5px 12px;border-radius:20px;background:var(--bg-warm);color:var(--ink-light);border:0.5px solid var(--border);">+ more in progress</span>
+      </div>
+    </div>
+
+    <!-- EXAMPLE: Debit Cards -->
+    <div style="margin-top:32px;width:100%;box-sizing:border-box;">
+      <p style="font-size:15px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-light);margin:0 0 14px;">Example — what a product score looks like</p>
+      <div style="width:100%;box-sizing:border-box;background:var(--bg-card);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+
+        <!-- header -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border);box-sizing:border-box;flex-wrap:wrap;gap:12px;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:36px;height:36px;flex-shrink:0;border-radius:8px;background:var(--teal-light);display:flex;align-items:center;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1D9E75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div>
+              <p style="font-size:19px;font-weight:500;margin:0;">Debit Cards</p>
+              <p style="font-size:15px;color:var(--ink-light);margin:0;">Based on 2 live categories · 7 metrics</p>
+            </div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <p style="font-size:15px;color:var(--ink-light);margin:0 0 2px;">Product score</p>
+            <p style="font-family:'Lora',serif;font-size:34px;font-weight:600;margin:0;line-height:1;color:var(--ink);">3.54 <span style="font-size:17px;color:var(--ink-light);font-weight:400;">/ 6</span></p>
+            <span style="font-size:16px;background:var(--bg-warm);color:var(--ink-mid);padding:2px 8px;border-radius:20px;font-weight:500;">Structured</span>
+          </div>
+        </div>
+
+        <!-- two columns -->
+        <div style="display:table;width:100%;box-sizing:border-box;border-collapse:collapse;border-bottom:1px solid var(--border);">
+
+          <div style="display:table-cell;width:50%;padding:20px 24px;border-right:1px solid var(--border);vertical-align:top;box-sizing:border-box;">
+            <p style="font-size:15px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--teal-mid);margin:0 0 14px;">Product experience quality</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <div class="metric-item" style="padding:2px 4px;gap:8px;color:var(--teal);">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/></svg>
+                    <span style="color:var(--ink-mid);font-size:16px;">CSAT</span>
+                    <span class="tip">A simple satisfaction rating after an interaction — did this experience meet expectations?</span>
+                  </div>
+                  <span style="font-size:16px;font-weight:500;flex-shrink:0;">4 / 6</span>
+                </div>
+                <div style="height:5px;background:var(--bg-warm);border-radius:3px;overflow:hidden;"><div style="height:100%;width:66.6%;background:var(--teal);border-radius:3px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <div class="metric-item" style="padding:2px 4px;gap:8px;color:var(--teal);">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 12l4-4"/></svg>
+                    <span style="color:var(--ink-mid);font-size:16px;">Customer effort score</span>
+                    <span class="tip">How hard did the customer have to work to get something done? Lower effort equals higher loyalty.</span>
+                  </div>
+                  <span style="font-size:16px;font-weight:500;flex-shrink:0;">5 / 6</span>
+                </div>
+                <div style="height:5px;background:var(--bg-warm);border-radius:3px;overflow:hidden;"><div style="height:100%;width:83.3%;background:var(--teal);border-radius:3px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <div class="metric-item" style="padding:2px 4px;gap:8px;color:var(--red);">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    <span style="color:var(--ink-mid);font-size:16px;">Task success rate</span>
+                    <span class="tip">How often customers complete what they came to do without giving up or failing. Higher means fewer frustrating dead ends.</span>
+                  </div>
+                  <span style="font-size:16px;font-weight:500;color:var(--red);flex-shrink:0;">1 / 6</span>
+                </div>
+                <div style="height:5px;background:var(--bg-warm);border-radius:3px;overflow:hidden;"><div style="height:100%;width:16.6%;background:var(--red);border-radius:3px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <div class="metric-item" style="padding:2px 4px;gap:8px;color:var(--red);">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span style="color:var(--ink-mid);font-size:16px;">Time-on-task efficiency</span>
+                    <span class="tip">How long it takes to complete common actions. Shorter is better — nobody wants to spend 3 minutes finding their balance.</span>
+                  </div>
+                  <span style="font-size:16px;font-weight:500;color:var(--red);flex-shrink:0;">1 / 6</span>
+                </div>
+                <div style="height:5px;background:var(--bg-warm);border-radius:3px;overflow:hidden;"><div style="height:100%;width:16.6%;background:var(--red);border-radius:3px;"></div></div>
+              </div>
+            </div>
+            <div style="margin-top:14px;padding-top:12px;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;">
+              <span style="font-size:15px;color:var(--ink-light);">Category avg.</span>
+              <span style="font-size:18px;font-weight:500;">2.75 / 6</span>
+            </div>
+          </div>
+
+          <div style="display:table-cell;width:50%;padding:20px 24px;vertical-align:top;box-sizing:border-box;">
+            <p style="font-size:15px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--teal-mid);margin:0 0 14px;">Operational efficiency</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <div class="metric-item" style="padding:2px 4px;gap:8px;color:var(--teal);">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span style="color:var(--ink-mid);font-size:16px;">Design lead time</span>
+                    <span class="tip">How long it takes the design team to go from brief to ready-to-build. Measures design team throughput.</span>
+                  </div>
+                  <span style="font-size:16px;font-weight:500;flex-shrink:0;">3 / 6</span>
+                </div>
+                <div style="height:5px;background:var(--bg-warm);border-radius:3px;overflow:hidden;"><div style="height:100%;width:50%;background:var(--teal);border-radius:3px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <div class="metric-item" style="padding:2px 4px;gap:8px;color:var(--teal);">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <span style="color:var(--ink-mid);font-size:16px;">Design-to-dev cycle time</span>
+                    <span class="tip">How long from a finalized design to working code in production. Shorter cycles mean faster delivery to customers.</span>
+                  </div>
+                  <span style="font-size:16px;font-weight:500;flex-shrink:0;">4 / 6</span>
+                </div>
+                <div style="height:5px;background:var(--bg-warm);border-radius:3px;overflow:hidden;"><div style="height:100%;width:66.6%;background:var(--teal);border-radius:3px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <div class="metric-item" style="padding:2px 4px;gap:8px;color:var(--teal);">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    <span style="color:var(--ink-mid);font-size:16px;">Rework rate</span>
+                    <span class="tip">How often designs have to be significantly revised after handoff. High rework signals misalignment earlier in the process.</span>
+                  </div>
+                  <span style="font-size:16px;font-weight:500;flex-shrink:0;">6 / 6</span>
+                </div>
+                <div style="height:5px;background:var(--bg-warm);border-radius:3px;overflow:hidden;"><div style="height:100%;width:100%;background:var(--teal);border-radius:3px;"></div></div>
+              </div>
+            </div>
+            <div style="margin-top:14px;padding-top:12px;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;">
+              <span style="font-size:15px;color:var(--ink-light);">Category avg.</span>
+              <span style="font-size:18px;font-weight:500;">4.33 / 6</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- footer insight -->
+        <div style="padding:14px 24px;background:var(--bg-warm);display:flex;align-items:flex-start;gap:8px;box-sizing:border-box;">
+          <svg style="flex-shrink:0;margin-top:1px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-light)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <p style="font-size:16px;color:var(--ink-light);margin:0;line-height:1.6;">Task success rate and time-on-task efficiency are scoring low — a clear signal to prioritize flow improvements in the Debit Cards experience.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="caveat-box">
+      <strong>Important caveat.</strong> The data we have is real — but not yet universal. We do not have full coverage across every experience flow and product surface. We are actively working with Product and Digital teams to ensure tracking is in place everywhere it needs to be. Until then, the score reflects a partial view, and should be read as directional rather than definitive.
+    </div>
+
+    <div style="margin-top:40px;padding-top:36px;border-top:1px solid var(--border);">
+      <p class="section-label">What's next</p>
+      <p style="font-size:19px;color:var(--ink-mid);line-height:1.85;max-width:640px;margin:10px 0 24px;">By end of Q2 2026 we are adding <strong style="color:var(--ink);">Research & Validation</strong> and <strong style="color:var(--ink);">Collaboration & Culture</strong> — the categories that tell us whether we build the right things and whether design is truly embedded across the organization. Each new category makes the score more precise and more meaningful.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="next-card priority">
+          <div class="next-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h12v6l4 10H2L6 8V2z"/><line x1="6" y1="2" x2="18" y2="2"/></svg></div>
+          <h4>Research & validation</h4>
+          <p>Are we validating before we build? Prototype testing rates, insights adoption, post-release checks.</p>
+        </div>
+        <div class="next-card priority">
+          <div class="next-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h4>Collaboration & culture</h4>
+          <p>Is design embedded in the process? Backlog involvement, stakeholder participation, feedback loops.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing fade-in" style="border-top:1px solid var(--border);margin-top:0;">
+    <div class="callout" style="text-align:left;margin-bottom:32px;">
+      The maturity score does not exist to grade the design team. It exists to give the organization a shared, honest view of where customer experience investment is paying off — and where it isn't. When we know our score, we know where to focus.
+    </div>
+    <blockquote>"We didn't start this to prove the design team's value. We started it because TBC's customers deserve an organization that knows — with data — whether it is getting better at serving them."</blockquote>
+    <cite>Experience Design Team, TBC Bank · 2025–2026</cite>
+  </div>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</div>
+
+</body>
+</html>
